@@ -1,10 +1,11 @@
-{{- $desc := .Site.Params.description -}}
+{{- $b := index hugo.Data.brand .Site.Language.Lang -}}
+{{- $h := $b.home -}}
 {{- /* Cards to the four standards pages, in nav order. */ -}}
 {{- $cards := slice
-  (dict "url" "/logo/"       "title" "Logo"       "blurb" "The evidence target and the WGO wordmark — clear space, sizing, and what never to do to them.")
-  (dict "url" "/color/"      "title" "Colour"     "blurb" "One teal, a navy ink, and the fact / unknown / conflict system that carries meaning, not decoration.")
-  (dict "url" "/typography/" "title" "Typography" "blurb" "Inter for everything human, JetBrains Mono for everything exact. Both open source, both self-hosted.")
-  (dict "url" "/voice/"      "title" "Voice"      "blurb" "Evidence-led, plain, and honest about what is not known. How WGO writes, with examples.")
+  (dict "url" "/logo/"       "title" $b.nav.logo       "blurb" $h.cards.logo)
+  (dict "url" "/color/"      "title" $b.nav.color      "blurb" $h.cards.color)
+  (dict "url" "/typography/" "title" $b.nav.typography "blurb" $h.cards.typography)
+  (dict "url" "/voice/"      "title" $b.nav.voice      "blurb" $h.cards.voice)
 -}}
 
 <section class="relative overflow-hidden border-b border-gray-100 dark:border-white/10">
@@ -12,19 +13,18 @@
   <div class="relative mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-28">
     <p class="font-mono text-sm font-medium text-brand-700 dark:text-brand-400">brand.wgo-audit.com</p>
     <h1 class="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl dark:text-white">
-      One evidence target, a disciplined palette, and a voice that never dresses up a guess as a fact.
+      {{ $h.h1 }}
     </h1>
     <p class="mt-6 max-w-2xl text-lg text-gray-600 dark:text-gray-300">
-      This is the whole WGO brand — small on purpose. Everything an audience touches should read as
-      evidence-led, calm, and self-aware about what it does not yet know. Four pages hold the rules.
+      {{ $h.intro }}
     </p>
     <div class="mt-10 flex flex-wrap gap-3">
-      <a href="{{ "/logo/" | relURL }}" class="inline-flex items-center gap-2 rounded-md bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-500">
-        Explore the standards
+      <a href="{{ "/logo/" | relLangURL }}" class="inline-flex items-center gap-2 rounded-md bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-500">
+        {{ $h.explore }}
         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
       </a>
       <a href="{{ .Site.Params.mainSite }}" class="inline-flex items-center gap-2 rounded-md border border-gray-300 px-4 py-2.5 text-sm font-semibold text-gray-800 transition hover:border-brand-400 hover:text-brand-700 dark:border-white/15 dark:text-gray-100 dark:hover:border-brand-500 dark:hover:text-brand-300">
-        See it in use
+        {{ $h.see_in_use }}
       </a>
     </div>
   </div>
@@ -39,7 +39,7 @@
         <circle cx="12" cy="12" r="5.5" stroke="currentColor" stroke-width="1.7" opacity="0.7" />
         <circle cx="12" cy="12" r="2" fill="currentColor" />
       </svg>
-      <span class="text-sm text-gray-500">On light</span>
+      <span class="text-sm text-gray-500">{{ $h.on_light }}</span>
     </div>
     <div class="flex flex-col items-center justify-center gap-4 rounded-2xl border border-white/10 bg-ink-950 py-14">
       <svg class="h-20 w-20 text-brand-400" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -47,40 +47,39 @@
         <circle cx="12" cy="12" r="5.5" stroke="currentColor" stroke-width="1.7" opacity="0.7" />
         <circle cx="12" cy="12" r="2" fill="currentColor" />
       </svg>
-      <span class="text-sm text-gray-400">On ink</span>
+      <span class="text-sm text-gray-400">{{ $h.on_ink }}</span>
     </div>
   </div>
   <p class="mx-auto mt-6 max-w-2xl text-center text-sm text-gray-500 dark:text-gray-400">
-    Concentric rings closing on a centre — evidence resolving to a finding. It is the whole
-    identity: the favicon, the header mark, and the anchor of every layout.
+    {{ $h.mark_caption }}
   </p>
 </section>
 
 {{- /* Three principles that govern the brand. */ -}}
 <section class="border-y border-gray-100 bg-gray-50 dark:border-white/10 dark:bg-ink-900">
   <div class="mx-auto max-w-6xl px-6 py-16 lg:px-8">
-    <h2 class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">What the brand stands for</h2>
+    <h2 class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ $h.stands_for }}</h2>
     <div class="mt-8 grid gap-8 md:grid-cols-3">
       <div>
         <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-fact-100 text-fact-700 dark:bg-fact-500/15 dark:text-fact-400">
           <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
         </div>
-        <h3 class="mt-4 text-lg font-semibold text-gray-900 dark:text-white">Evidence-led</h3>
-        <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">Every claim traces to something you can open. The design shows its sources rather than asserting authority.</p>
+        <h3 class="mt-4 text-lg font-semibold text-gray-900 dark:text-white">{{ $h.principles.evidence.t }}</h3>
+        <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">{{ $h.principles.evidence.d }}</p>
       </div>
       <div>
         <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-unknown-100 text-unknown-700 dark:bg-unknown-500/15 dark:text-unknown-400">
           <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M12 17.25h.007v.008H12v-.008Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Z" /></svg>
         </div>
-        <h3 class="mt-4 text-lg font-semibold text-gray-900 dark:text-white">Uncertainty-preserving</h3>
-        <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">Unknowns get their own colour and their own words. The brand never smooths a gap into confident prose.</p>
+        <h3 class="mt-4 text-lg font-semibold text-gray-900 dark:text-white">{{ $h.principles.uncertainty.t }}</h3>
+        <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">{{ $h.principles.uncertainty.d }}</p>
       </div>
       <div>
         <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-100 text-brand-700 dark:bg-brand-500/15 dark:text-brand-300">
           <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
         </div>
-        <h3 class="mt-4 text-lg font-semibold text-gray-900 dark:text-white">Minimalist</h3>
-        <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">One typeface family for people, one for machines. One accent. No ornament that does not carry meaning.</p>
+        <h3 class="mt-4 text-lg font-semibold text-gray-900 dark:text-white">{{ $h.principles.minimalist.t }}</h3>
+        <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">{{ $h.principles.minimalist.d }}</p>
       </div>
     </div>
   </div>
@@ -90,7 +89,7 @@
 <section class="mx-auto max-w-6xl px-6 py-16 lg:px-8">
   <div class="grid gap-4 sm:grid-cols-2">
     {{- range $c := $cards }}
-      <a href="{{ $c.url | relURL }}" class="group flex flex-col rounded-2xl border border-gray-200 bg-white p-6 transition hover:border-brand-300 hover:shadow-md hover:shadow-brand-900/5 dark:border-white/10 dark:bg-ink-900 dark:hover:border-brand-500/50">
+      <a href="{{ $c.url | relLangURL }}" class="group flex flex-col rounded-2xl border border-gray-200 bg-white p-6 transition hover:border-brand-300 hover:shadow-md hover:shadow-brand-900/5 dark:border-white/10 dark:bg-ink-900 dark:hover:border-brand-500/50">
         <div class="flex items-center justify-between">
           <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $c.title }}</h3>
           <svg class="h-5 w-5 text-gray-300 transition group-hover:translate-x-0.5 group-hover:text-brand-500 dark:text-gray-600" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>

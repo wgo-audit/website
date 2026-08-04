@@ -1,96 +1,308 @@
-# Brand tokens for the standards site (brand.wgo-audit.com).
-# These MIRROR the @theme design tokens in assets/css/main.css. main.css stays
-# the single source of truth for the running site; this file exists so the brand
-# showcase pages can render swatches and specimens with labels + hex values.
-# If you change a value here, change it in main.css too (and vice-versa).
+# Brand standards site copy + tokens (brand.wgo-audit.com), bilingual.
+#
+#   tokens : language-neutral design values. These MIRROR the @theme tokens in
+#            assets/css/main.css — if you change a value here, change it there
+#            too. main.css stays the single source of truth for the live site.
+#   en/fr  : all display copy for the showcase components, so EN and FR sit
+#            side by side and stay in step. Page titles/descriptions/intros live
+#            in brand-content/*.md instead (front matter + body), per language.
+#
+# French is Canadian/Quebec French with straight apostrophes, matching the main
+# site's data/home.fr.yml. Product name (WGO / Whats.Going.On.), reviewer IDs,
+# commands, paths and hex values are never translated.
 
-colour:
-  brand:
-    name: "Brand — Teal"
-    role: "The WGO wordmark and every primary action. Brand-600 is the anchor; 500 lifts it on dark."
-    anchor: "brand-600"
-    swatches:
-      - { step: "50", hex: "#f0fdfa" }
-      - { step: "100", hex: "#ccfbf1" }
-      - { step: "200", hex: "#99f6e4" }
-      - { step: "300", hex: "#5eead4" }
-      - { step: "400", hex: "#2dd4bf" }
-      - { step: "500", hex: "#14b8a6" }
-      - { step: "600", hex: "#0d9488" }
-      - { step: "700", hex: "#0f766e" }
-      - { step: "800", hex: "#115e59" }
-      - { step: "900", hex: "#134e4a" }
-      - { step: "950", hex: "#042f2e" }
-  ink:
-    name: "Ink — Deep navy"
-    role: "The canvas and terminal surfaces. Ink-950 is the dark-mode background; the lighter steps build panels and borders."
-    anchor: "ink-950"
-    swatches:
-      - { step: "600", hex: "#1e3350" }
-      - { step: "700", hex: "#16283f" }
-      - { step: "800", hex: "#0f1e33" }
-      - { step: "900", hex: "#0a1424" }
-      - { step: "950", hex: "#060d18" }
+tokens:
+  colour:
+    brand:
+      anchor: brand-600
+      swatches:
+        - { step: "50", hex: "#f0fdfa" }
+        - { step: "100", hex: "#ccfbf1" }
+        - { step: "200", hex: "#99f6e4" }
+        - { step: "300", hex: "#5eead4" }
+        - { step: "400", hex: "#2dd4bf" }
+        - { step: "500", hex: "#14b8a6" }
+        - { step: "600", hex: "#0d9488" }
+        - { step: "700", hex: "#0f766e" }
+        - { step: "800", hex: "#115e59" }
+        - { step: "900", hex: "#134e4a" }
+        - { step: "950", hex: "#042f2e" }
+    ink:
+      anchor: ink-950
+      swatches:
+        - { step: "600", hex: "#1e3350" }
+        - { step: "700", hex: "#16283f" }
+        - { step: "800", hex: "#0f1e33" }
+        - { step: "900", hex: "#0a1424" }
+        - { step: "950", hex: "#060d18" }
+  evidence:
+    - key: fact
+      anchor: fact-500
+      swatches:
+        - { step: "50", hex: "#ecfdf5" }
+        - { step: "100", hex: "#d1fae5" }
+        - { step: "400", hex: "#34d399" }
+        - { step: "500", hex: "#10b981" }
+        - { step: "600", hex: "#059669" }
+        - { step: "700", hex: "#047857" }
+    - key: unknown
+      anchor: unknown-500
+      swatches:
+        - { step: "50", hex: "#fffbeb" }
+        - { step: "100", hex: "#fef3c7" }
+        - { step: "400", hex: "#fbbf24" }
+        - { step: "500", hex: "#f59e0b" }
+        - { step: "600", hex: "#d97706" }
+        - { step: "700", hex: "#b45309" }
+    - key: conflict
+      anchor: conflict-500
+      swatches:
+        - { step: "50", hex: "#fef2f2" }
+        - { step: "100", hex: "#fee2e2" }
+        - { step: "400", hex: "#f87171" }
+        - { step: "500", hex: "#ef4444" }
+        - { step: "600", hex: "#dc2626" }
+        - { step: "700", hex: "#b91c1c" }
+  type:
+    families:
+      - { key: inter, class: "font-sans" }
+      - { key: mono, class: "font-mono" }
+    scale:
+      - { key: display, class: "text-5xl font-bold tracking-tight", meta: "48px / 700" }
+      - { key: h1, class: "text-3xl font-bold tracking-tight", meta: "30px / 700" }
+      - { key: h2, class: "text-xl font-semibold", meta: "20px / 600" }
+      - { key: body, class: "text-base", meta: "16px / 400" }
+      - { key: small, class: "text-sm text-gray-600 dark:text-gray-400", meta: "14px / 400" }
+      - { key: mono, class: "text-sm font-mono", meta: "14px / 400 mono" }
 
-# The evidence semantic system — WGO's signature. Never decorative: each colour
-# maps to one epistemic state and one only. A fact never quietly becomes an
-# unknown; an unknown is never dressed up as a conflict.
-evidence:
-  - key: fact
-    name: "Facts"
-    tone: "Green"
-    meaning: "Verified and traceable to a source you can open."
-    anchor: "fact-500"
-    swatches:
-      - { step: "50", hex: "#ecfdf5" }
-      - { step: "100", hex: "#d1fae5" }
-      - { step: "400", hex: "#34d399" }
-      - { step: "500", hex: "#10b981" }
-      - { step: "600", hex: "#059669" }
-      - { step: "700", hex: "#047857" }
-  - key: unknown
-    name: "Unknowns"
-    tone: "Amber"
-    meaning: "Missing or unverified — named plainly, never filled with confident prose."
-    anchor: "unknown-500"
-    swatches:
-      - { step: "50", hex: "#fffbeb" }
-      - { step: "100", hex: "#fef3c7" }
-      - { step: "400", hex: "#fbbf24" }
-      - { step: "500", hex: "#f59e0b" }
-      - { step: "600", hex: "#d97706" }
-      - { step: "700", hex: "#b45309" }
-  - key: conflict
-    name: "Conflicts"
-    tone: "Red"
-    meaning: "Differing or contradictory signals, surfaced and then reconciled."
-    anchor: "conflict-500"
-    swatches:
-      - { step: "50", hex: "#fef2f2" }
-      - { step: "100", hex: "#fee2e2" }
-      - { step: "400", hex: "#f87171" }
-      - { step: "500", hex: "#ef4444" }
-      - { step: "600", hex: "#dc2626" }
-      - { step: "700", hex: "#b91c1c" }
+# ─────────────────────────────────────────────────────────── English ──
+en:
+  ui:
+    badge: "Brand"
+    main_site: "Main site"
+    source: "Source"
+    breadcrumb: "Brand"
+    footer_blurb: "Brand standards for Whats.Going.On. Keep it small, keep it honest."
+  nav:
+    logo: "Logo"
+    color: "Colour"
+    typography: "Typography"
+    voice: "Voice"
+  home:
+    h1: "One evidence target, a disciplined palette, and a voice that never dresses up a guess as a fact."
+    intro: "This is the whole WGO brand — small on purpose. Everything an audience touches should read as evidence-led, calm, and self-aware about what it does not yet know. Four pages hold the rules."
+    explore: "Explore the standards"
+    see_in_use: "See it in use"
+    on_light: "On light"
+    on_ink: "On ink"
+    mark_caption: "Concentric rings closing on a centre — evidence resolving to a finding. It is the whole identity: the favicon, the header mark, and the anchor of every layout."
+    stands_for: "What the brand stands for"
+    principles:
+      evidence:
+        t: "Evidence-led"
+        d: "Every claim traces to something you can open. The design shows its sources rather than asserting authority."
+      uncertainty:
+        t: "Uncertainty-preserving"
+        d: "Unknowns get their own colour and their own words. The brand never smooths a gap into confident prose."
+      minimalist:
+        t: "Minimalist"
+        d: "One typeface family for people, one for machines. One accent. No ornament that does not carry meaning."
+    cards:
+      logo: "The evidence target and the WGO wordmark — clear space, sizing, and what never to do to them."
+      color: "One teal, a navy ink, and the fact / unknown / conflict system that carries meaning, not decoration."
+      typography: "Inter for everything human, JetBrains Mono for everything exact. Both open source, both self-hosted."
+      voice: "Evidence-led, plain, and honest about what is not known. How WGO writes, with examples."
+  logo:
+    marks_h: "The marks"
+    anchor_label: "anchor"
+    mark: { t: "Mark", d: "Favicon, app icon, and anywhere the wordmark will not fit." }
+    wordmark: { t: "Wordmark", d: "Inter Bold, tight tracking. Set in text, never redrawn." }
+    lockup: { t: "Lockup", d: "Mark + wordmark, baseline-aligned. The default in headers." }
+    space_h: "Clear space & size"
+    clearspace: "Keep clear space of at least the height of the ring on every side. Nothing else sits inside it."
+    minsize: "Never place the lockup below 16 px tall. Under that, use the mark alone."
+    minsize_tag: "16px min"
+    never_h: "Never"
+    never:
+      - "Recolour the mark"
+      - "Stretch or squash"
+      - "Add effects or shadows"
+      - "Rebuild in another font"
+    files_h: "Files"
+    files:
+      - "Lockup — SVG"
+      - "Mark — SVG"
+      - "Favicon — ICO"
+    files_note: "Served from the main site so there is one source of truth for the assets."
+  color:
+    foundation: "Foundation"
+    anchor_label: "anchor"
+    brand: { name: "Brand — Teal", role: "The WGO wordmark and every primary action. Brand-600 is the anchor; 500 lifts it on dark." }
+    ink: { name: "Ink — Deep navy", role: "The canvas and terminal surfaces. Ink-950 is the dark-mode background; the lighter steps build panels and borders." }
+    evidence_h: "The evidence system"
+    evidence_intro: "Three colours, three epistemic states. This is the one place colour carries meaning rather than style — so it is never borrowed for decoration. A fact never quietly becomes an unknown; an unknown is never dressed up as a conflict."
+    evidence:
+      fact: { name: "Facts", tone: "Green", meaning: "Verified and traceable to a source you can open." }
+      unknown: { name: "Unknowns", tone: "Amber", meaning: "Missing or unverified — named plainly, never filled with confident prose." }
+      conflict: { name: "Conflicts", tone: "Red", meaning: "Differing or contradictory signals, surfaced and then reconciled." }
+    finding_h: "In a finding"
+    finding:
+      fact: { label: "Fact", text: "Backups ran nightly for the last 30 days — <code class=\"font-mono text-xs\">ops/backup.log</code>, verified." }
+      unknown: { label: "Unknown", text: "Whether a restore has ever been tested. No evidence found; owner not reachable this cycle." }
+      conflict: { label: "Conflict", text: "The runbook says 90-day retention; the config keeps 7 days. Surfaced for reconciliation." }
+  typography:
+    families_h: "Families"
+    families:
+      inter: { role: "Interface & prose", note: "A variable font (weights 100–900) self-hosted as one .woff2. Open source, SIL Open Font License.", sample: "Find out what is true, what is risky, and what needs to happen next." }
+      mono: { role: "Code, commands & evidence", note: "Used wherever exactness matters — install commands, file paths, cited evidence. Open source, SIL Open Font License.", sample: "git clone https://github.com/wgo-audit/code.git" }
+    scale_h: "Scale"
+    scale_note: "Sizes are Tailwind's default type scale. Weight does the work; size steps stay few."
+    scale_names:
+      display: "Display"
+      h1: "Heading 1"
+      h2: "Heading 2"
+      body: "Body"
+      small: "Small"
+      mono: "Mono"
+  voice:
+    speaks_h: "How WGO speaks"
+    principles:
+      - { t: "Plain over clever", d: "Short words, short sentences. If a founder needs a glossary to read it, rewrite it." }
+      - { t: "Evidence over assertion", d: "State what was checked and where. Cite the source; let it carry the authority." }
+      - { t: "Honest about gaps", d: "Name what is unknown in the same breath as what is known. Never fill silence with confidence." }
+    pairs_h: "Say this, not that"
+    say: "Say this"
+    not: "Not that"
+    why: "Why:"
+    pairs:
+      - yes: "Backups ran nightly for 30 days (ops/backup.log). Whether a restore has ever succeeded is unverified — no evidence found."
+        no: "Backups are fully working and disaster recovery is in place."
+        why: "The second claim asserts what was never checked. The first separates the fact from the unknown."
+      - yes: "Three of eight reviewers flag the shared admin account as a material risk."
+        no: "The system is basically secure with a few minor issues."
+        why: "Vague reassurance hides the finding. Name it, count it, rank it."
+      - yes: "We could not reach the payments owner this cycle, so revenue exposure is unconfirmed."
+        no: "Revenue looks healthy."
+        why: "An inaccessible source is a limitation to report, not a gap to paper over."
+    naming_h: "Naming"
+    naming:
+      - { k: "Product", v: "Whats.Going.On. — written in full with the trailing period, or WGO. Never “Wgo” or “W.G.O.”." }
+      - { k: "Reviewers", v: "Lower-case, hyphenated identifiers: business-continuity, code-quality. They are IDs, not titles." }
+      - { k: "Commands", v: "Monospace, with the leading slash: /wgo_onboard. Never reflowed into prose." }
+      - { k: "The states", v: "Facts, Unknowns, Conflicts — capitalised when named as the system, lower-case in a sentence." }
 
-type:
-  families:
-    - name: "Inter"
-      role: "Interface & prose"
-      stack: "InterVariable, Inter, system-ui, sans-serif"
-      class: "font-sans"
-      note: "A variable font (weights 100–900) self-hosted as one .woff2. Open source, SIL Open Font License."
-      sample: "Find out what is true, what is risky, and what needs to happen next."
-    - name: "JetBrains Mono"
-      role: "Code, commands & evidence"
-      stack: "JetBrains Mono, ui-monospace, monospace"
-      class: "font-mono"
-      note: "Used wherever exactness matters — install commands, file paths, cited evidence. Open source, SIL Open Font License."
-      sample: "git clone https://github.com/wgo-audit/code.git"
-  scale:
-    - { name: "Display", class: "text-5xl font-bold tracking-tight", meta: "48px / 700" }
-    - { name: "Heading 1", class: "text-3xl font-bold tracking-tight", meta: "30px / 700" }
-    - { name: "Heading 2", class: "text-xl font-semibold", meta: "20px / 600" }
-    - { name: "Body", class: "text-base", meta: "16px / 400" }
-    - { name: "Small", class: "text-sm text-gray-600 dark:text-gray-400", meta: "14px / 400" }
-    - { name: "Mono", class: "text-sm font-mono", meta: "14px / 400 mono" }
+# ──────────────────────────────────────────────────────────── French ──
+fr:
+  ui:
+    badge: "Marque"
+    main_site: "Site principal"
+    source: "Code source"
+    breadcrumb: "Marque"
+    footer_blurb: "Normes de marque pour Whats.Going.On. Rester sobre, rester honnête."
+  nav:
+    logo: "Logo"
+    color: "Couleur"
+    typography: "Typographie"
+    voice: "Voix"
+  home:
+    h1: "Une cible de preuves, une palette rigoureuse et une voix qui ne déguise jamais une supposition en fait."
+    intro: "Voici toute la marque WGO — volontairement sobre. Tout ce qu'un public touche doit se lire comme fondé sur les preuves, posé et lucide sur ce qu'il ne sait pas encore. Quatre pages en fixent les règles."
+    explore: "Explorer les normes"
+    see_in_use: "La voir à l'œuvre"
+    on_light: "Sur fond clair"
+    on_ink: "Sur fond encre"
+    mark_caption: "Des anneaux concentriques se resserrant sur un centre — la preuve qui se résout en constat. C'est toute l'identité : le favicon, le symbole de l'en-tête et l'ancre de chaque mise en page."
+    stands_for: "Ce que la marque défend"
+    principles:
+      evidence:
+        t: "Fondée sur les preuves"
+        d: "Chaque affirmation renvoie à quelque chose que l'on peut ouvrir. Le design montre ses sources au lieu d'imposer son autorité."
+      uncertainty:
+        t: "Préservant l'incertitude"
+        d: "Les inconnues ont leur propre couleur et leurs propres mots. La marque ne lisse jamais un écart en affirmation assurée."
+      minimalist:
+        t: "Minimaliste"
+        d: "Une famille de caractères pour les humains, une pour les machines. Un seul accent. Aucun ornement qui ne porte de sens."
+    cards:
+      logo: "La cible de preuves et le logotype WGO — zone de protection, dimensions et ce qu'il ne faut jamais leur faire."
+      color: "Un sarcelle, une encre marine et le système faits / inconnues / conflits qui porte du sens, pas de la décoration."
+      typography: "Inter pour tout ce qui est humain, JetBrains Mono pour tout ce qui est exact. Les deux à code ouvert, les deux auto-hébergées."
+      voice: "Fondée sur les preuves, claire et honnête sur ce qui n'est pas connu. Comment WGO écrit, avec des exemples."
+  logo:
+    marks_h: "Les signes"
+    anchor_label: "ancre"
+    mark: { t: "Symbole", d: "Favicon, icône d'application, et partout où le logotype ne rentre pas." }
+    wordmark: { t: "Logotype", d: "Inter gras, interlettrage serré. Composé en texte, jamais redessiné." }
+    lockup: { t: "Signature", d: "Symbole + logotype, alignés sur la ligne de base. La forme par défaut dans les en-têtes." }
+    space_h: "Zone de protection et taille"
+    clearspace: "Conserver une zone de protection d'au moins la hauteur de l'anneau sur chaque côté. Rien d'autre ne s'y place."
+    minsize: "Ne jamais descendre la signature sous 16 px de haut. En deçà, utiliser le symbole seul."
+    minsize_tag: "16px min"
+    never_h: "Jamais"
+    never:
+      - "Recolorer le symbole"
+      - "Étirer ou écraser"
+      - "Ajouter effets ou ombres"
+      - "Refaire dans une autre police"
+    files_h: "Fichiers"
+    files:
+      - "Signature — SVG"
+      - "Symbole — SVG"
+      - "Favicon — ICO"
+    files_note: "Servis depuis le site principal, pour une seule source de vérité des fichiers."
+  color:
+    foundation: "Fondation"
+    anchor_label: "ancre"
+    brand: { name: "Marque — Sarcelle", role: "Le logotype WGO et chaque action principale. Brand-600 est l'ancre; 500 la rehausse sur fond sombre." }
+    ink: { name: "Encre — Marine profond", role: "Le canevas et les surfaces de terminal. Ink-950 est le fond en mode sombre; les échelons plus clairs construisent panneaux et bordures." }
+    evidence_h: "Le système de preuves"
+    evidence_intro: "Trois couleurs, trois états de connaissance. C'est le seul endroit où la couleur porte du sens plutôt que du style — elle n'est donc jamais empruntée pour décorer. Un fait ne devient jamais discrètement une inconnue; une inconnue n'est jamais déguisée en conflit."
+    evidence:
+      fact: { name: "Faits", tone: "Vert", meaning: "Vérifiés et traçables jusqu'à une source que l'on peut ouvrir." }
+      unknown: { name: "Inconnues", tone: "Ambre", meaning: "Manquantes ou non vérifiées — nommées clairement, jamais comblées par une affirmation assurée." }
+      conflict: { name: "Conflits", tone: "Rouge", meaning: "Signaux divergents ou contradictoires, mis au jour puis réconciliés." }
+    finding_h: "Dans un constat"
+    finding:
+      fact: { label: "Fait", text: "Les sauvegardes ont tourné chaque nuit les 30 derniers jours — <code class=\"font-mono text-xs\">ops/backup.log</code>, vérifié." }
+      unknown: { label: "Inconnue", text: "Si une restauration a déjà été testée. Aucune preuve trouvée; le responsable est injoignable ce cycle-ci." }
+      conflict: { label: "Conflit", text: "Le guide d'exploitation indique 90 jours de rétention; la configuration en garde 7. Mis au jour pour réconciliation." }
+  typography:
+    families_h: "Familles"
+    families:
+      inter: { role: "Interface et prose", note: "Une police variable (graisses 100–900) auto-hébergée en un seul .woff2. Code ouvert, licence SIL Open Font.", sample: "Sachez ce qui est vrai, ce qui est risqué et ce qui doit être fait ensuite." }
+      mono: { role: "Code, commandes et preuves", note: "Utilisée partout où l'exactitude compte — commandes d'installation, chemins de fichiers, preuves citées. Code ouvert, licence SIL Open Font.", sample: "git clone https://github.com/wgo-audit/code.git" }
+    scale_h: "Échelle"
+    scale_note: "Les tailles suivent l'échelle typographique par défaut de Tailwind. C'est la graisse qui travaille; les paliers de taille restent peu nombreux."
+    scale_names:
+      display: "Affichage"
+      h1: "Titre 1"
+      h2: "Titre 2"
+      body: "Corps"
+      small: "Petit"
+      mono: "Mono"
+  voice:
+    speaks_h: "Comment WGO parle"
+    principles:
+      - { t: "Clair plutôt qu'ingénieux", d: "Mots courts, phrases courtes. S'il faut un glossaire à un fondateur pour vous lire, réécrivez." }
+      - { t: "La preuve plutôt que l'affirmation", d: "Dites ce qui a été vérifié et où. Citez la source; laissez-la porter l'autorité." }
+      - { t: "Honnête sur les écarts", d: "Nommez l'inconnu dans le même souffle que le connu. Ne comblez jamais un silence par de l'assurance." }
+    pairs_h: "Dites ceci, pas cela"
+    say: "Dites ceci"
+    not: "Pas cela"
+    why: "Pourquoi :"
+    pairs:
+      - yes: "Les sauvegardes ont tourné chaque nuit pendant 30 jours (ops/backup.log). Qu'une restauration ait déjà réussi reste non vérifié — aucune preuve trouvée."
+        no: "Les sauvegardes fonctionnent parfaitement et la reprise après sinistre est en place."
+        why: "La seconde affirmation avance ce qui n'a jamais été vérifié. La première sépare le fait de l'inconnue."
+      - yes: "Trois réviseurs sur huit signalent le compte administrateur partagé comme un risque important."
+        no: "Le système est globalement sécuritaire, à quelques détails près."
+        why: "Une réassurance vague masque le constat. Nommez-le, comptez-le, classez-le."
+      - yes: "Nous n'avons pu joindre le responsable des paiements ce cycle-ci; l'exposition des revenus reste non confirmée."
+        no: "Les revenus semblent en bonne santé."
+        why: "Une source inaccessible est une limite à signaler, pas un écart à camoufler."
+    naming_h: "Nomenclature"
+    naming:
+      - { k: "Produit", v: "Whats.Going.On. — écrit au complet avec le point final, ou WGO. Jamais « Wgo » ni « W.G.O. »." }
+      - { k: "Réviseurs", v: "Identifiants en minuscules, avec traits d'union : business-continuity, code-quality. Ce sont des identifiants, pas des titres." }
+      - { k: "Commandes", v: "En chasse fixe, avec la barre oblique initiale : /wgo_onboard. Jamais refondues dans la prose." }
+      - { k: "Les états", v: "Faits, Inconnues, Conflits — en capitale initiale quand on nomme le système, en minuscule dans une phrase." }

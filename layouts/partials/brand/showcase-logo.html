@@ -1,6 +1,11 @@
+{{- $b := index hugo.Data.brand .Site.Language.Lang -}}
+{{- $l := $b.logo -}}
+{{- $never_cls := slice "text-conflict-500" "text-gray-900 dark:text-white scale-x-150" "text-gray-900 dark:text-white drop-shadow-[3px_3px_0_rgba(0,0,0,0.3)]" "text-gray-900 dark:text-white font-mono" -}}
+{{- $file_href := slice "/logo.svg" "/favicon.svg" "/favicon.ico" -}}
+
 {{- /* The mark, the wordmark, and the lockup. */ -}}
 <section aria-labelledby="marks-heading">
-  <h2 id="marks-heading" class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">The marks</h2>
+  <h2 id="marks-heading" class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ $l.marks_h }}</h2>
   <div class="mt-6 grid gap-4 sm:grid-cols-3">
 
     {{- /* Mark */ -}}
@@ -12,8 +17,8 @@
           <circle cx="12" cy="12" r="2" fill="currentColor" />
         </svg>
       </div>
-      <figcaption class="mt-4 text-sm font-medium text-gray-900 dark:text-white">Mark</figcaption>
-      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Favicon, app icon, and anywhere the wordmark will not fit.</p>
+      <figcaption class="mt-4 text-sm font-medium text-gray-900 dark:text-white">{{ $l.mark.t }}</figcaption>
+      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">{{ $l.mark.d }}</p>
     </figure>
 
     {{- /* Wordmark */ -}}
@@ -21,8 +26,8 @@
       <div class="flex h-28 items-center justify-center">
         <span class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white">WGO</span>
       </div>
-      <figcaption class="mt-4 text-sm font-medium text-gray-900 dark:text-white">Wordmark</figcaption>
-      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Inter Bold, tight tracking. Set in text, never redrawn.</p>
+      <figcaption class="mt-4 text-sm font-medium text-gray-900 dark:text-white">{{ $l.wordmark.t }}</figcaption>
+      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">{{ $l.wordmark.d }}</p>
     </figure>
 
     {{- /* Lockup */ -}}
@@ -35,15 +40,15 @@
         </svg>
         <span class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">WGO</span>
       </div>
-      <figcaption class="mt-4 text-sm font-medium text-gray-900 dark:text-white">Lockup</figcaption>
-      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Mark + wordmark, baseline-aligned. The default in headers.</p>
+      <figcaption class="mt-4 text-sm font-medium text-gray-900 dark:text-white">{{ $l.lockup.t }}</figcaption>
+      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">{{ $l.lockup.d }}</p>
     </figure>
   </div>
 </section>
 
 {{- /* Clear space & minimum size */ -}}
 <section aria-labelledby="space-heading" class="mt-16">
-  <h2 id="space-heading" class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Clear space &amp; size</h2>
+  <h2 id="space-heading" class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ $l.space_h }}</h2>
   <div class="mt-6 grid gap-4 md:grid-cols-2">
     <div class="rounded-2xl border border-gray-200 bg-white p-8 dark:border-white/10 dark:bg-ink-900">
       <div class="flex items-center justify-center rounded-lg border border-dashed border-brand-300 p-6 dark:border-brand-500/40">
@@ -56,7 +61,7 @@
           <span class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">WGO</span>
         </div>
       </div>
-      <p class="mt-4 text-sm text-gray-600 dark:text-gray-300">Keep clear space of at least the height of the ring on every side. Nothing else sits inside it.</p>
+      <p class="mt-4 text-sm text-gray-600 dark:text-gray-300">{{ $l.clearspace }}</p>
     </div>
     <div class="rounded-2xl border border-gray-200 bg-white p-8 dark:border-white/10 dark:bg-ink-900">
       <div class="flex h-full items-center justify-center gap-6">
@@ -64,30 +69,25 @@
           <svg class="h-4 w-4 text-brand-500" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.6" opacity="0.35" /><circle cx="12" cy="12" r="5.5" stroke="currentColor" stroke-width="1.7" opacity="0.7" /><circle cx="12" cy="12" r="2" fill="currentColor" /></svg>
           <span class="text-sm font-bold tracking-tight text-gray-900 dark:text-white">WGO</span>
         </div>
-        <span class="font-mono text-xs text-gray-400">16px min</span>
+        <span class="font-mono text-xs text-gray-400">{{ $l.minsize_tag }}</span>
       </div>
-      <p class="mt-4 text-sm text-gray-600 dark:text-gray-300">Never place the lockup below 16&nbsp;px tall. Under that, use the mark alone.</p>
+      <p class="mt-4 text-sm text-gray-600 dark:text-gray-300">{{ $l.minsize }}</p>
     </div>
   </div>
 </section>
 
 {{- /* Misuse */ -}}
 <section aria-labelledby="dont-heading" class="mt-16">
-  <h2 id="dont-heading" class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Never</h2>
+  <h2 id="dont-heading" class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ $l.never_h }}</h2>
   <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-    {{- range (slice
-      (dict "label" "Recolour the mark" "cls" "text-conflict-500")
-      (dict "label" "Stretch or squash" "cls" "text-gray-900 dark:text-white scale-x-150")
-      (dict "label" "Add effects or shadows" "cls" "text-gray-900 dark:text-white drop-shadow-[3px_3px_0_rgba(0,0,0,0.3)]")
-      (dict "label" "Rebuild in another font" "cls" "text-gray-900 dark:text-white font-mono")
-    ) }}
+    {{- range $i, $label := $l.never }}
       <figure class="rounded-2xl border border-conflict-200 bg-conflict-50/50 p-6 dark:border-conflict-500/20 dark:bg-conflict-500/5">
         <div class="flex h-16 items-center justify-center overflow-hidden">
-          <span class="text-2xl font-bold tracking-tight {{ .cls }}">WGO</span>
+          <span class="text-2xl font-bold tracking-tight {{ index $never_cls $i }}">WGO</span>
         </div>
         <figcaption class="mt-3 flex items-center gap-1.5 text-xs font-medium text-conflict-700 dark:text-conflict-400">
           <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
-          {{ .label }}
+          {{ $label }}
         </figcaption>
       </figure>
     {{- end }}
@@ -96,18 +96,14 @@
 
 {{- /* Downloads */ -}}
 <section aria-labelledby="dl-heading" class="mt-16">
-  <h2 id="dl-heading" class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Files</h2>
+  <h2 id="dl-heading" class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ $l.files_h }}</h2>
   <div class="mt-6 flex flex-wrap gap-3">
-    {{- range (slice
-      (dict "href" "/logo.svg" "label" "Lockup — SVG")
-      (dict "href" "/favicon.svg" "label" "Mark — SVG")
-      (dict "href" "/favicon.ico" "label" "Favicon — ICO")
-    ) }}
-      <a href="{{ .href }}" download class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-800 transition hover:border-brand-400 hover:text-brand-700 dark:border-white/15 dark:bg-ink-900 dark:text-gray-100 dark:hover:border-brand-500 dark:hover:text-brand-300">
+    {{- range $i, $label := $l.files }}
+      <a href="{{ index $file_href $i }}" download class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-800 transition hover:border-brand-400 hover:text-brand-700 dark:border-white/15 dark:bg-ink-900 dark:text-gray-100 dark:hover:border-brand-500 dark:hover:text-brand-300">
         <svg class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-6L12 15m0 0 4.5-4.5M12 15V3" /></svg>
-        {{ .label }}
+        {{ $label }}
       </a>
     {{- end }}
   </div>
-  <p class="mt-3 text-xs text-gray-500 dark:text-gray-400">Served from the main site so there is one source of truth for the assets.</p>
+  <p class="mt-3 text-xs text-gray-500 dark:text-gray-400">{{ $l.files_note }}</p>
 </section>

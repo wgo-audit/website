@@ -21,6 +21,9 @@ disableKinds:
   - taxonomy
   - term
 
+# EN at the root, FR under /fr/. The light top nav (four standards pages) is
+# defined per language so labels are translated and pageRefs resolve within the
+# right language tree. The overview is the wordmark link.
 languages:
   en:
     locale: en-CA
@@ -29,6 +32,25 @@ languages:
     params:
       description: "The WGO brand: one evidence target, a disciplined palette, and a voice that never dresses up a guess as a fact."
       tagline: "Brand standards for Whats.Going.On."
+    menu:
+      main:
+        - { name: Logo, pageRef: /logo, weight: 1 }
+        - { name: Colour, pageRef: /color, weight: 2 }
+        - { name: Typography, pageRef: /typography, weight: 3 }
+        - { name: Voice, pageRef: /voice, weight: 4 }
+  fr:
+    locale: fr-CA
+    label: Français
+    weight: 2
+    params:
+      description: "La marque WGO : une cible de preuves, une palette rigoureuse et une voix qui ne déguise jamais une supposition en fait."
+      tagline: "Normes de marque pour Whats.Going.On."
+    menu:
+      main:
+        - { name: Logo, pageRef: /logo, weight: 1 }
+        - { name: Couleur, pageRef: /color, weight: 2 }
+        - { name: Typographie, pageRef: /typography, weight: 3 }
+        - { name: Voix, pageRef: /voice, weight: 4 }
 
 # All brand pages resolve to the layouts/brand/ templates and carry the brand
 # chrome (header/footer) via siteKind.
@@ -42,22 +64,6 @@ params:
   mainSite: "https://wgo-audit.com/"
   github: "https://github.com/wgo-audit/code"
   org: "https://github.com/wgo-audit"
-
-# Light top nav — the four standards pages. The overview is the wordmark link.
-menu:
-  main:
-    - name: Logo
-      pageRef: /logo
-      weight: 1
-    - name: Colour
-      pageRef: /color
-      weight: 2
-    - name: Typography
-      pageRef: /typography
-      weight: 3
-    - name: Voice
-      pageRef: /voice
-      weight: 4
 
 markup:
   goldmark:

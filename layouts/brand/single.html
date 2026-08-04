@@ -1,10 +1,11 @@
 {{ define "main" }}
 {{- $kind := .Params.showcase -}}
+{{- $ui := (index hugo.Data.brand .Site.Language.Lang).ui -}}
 <div class="mx-auto max-w-6xl px-6 py-12 lg:px-8">
 
   {{- /* Breadcrumb */ -}}
   <nav class="mb-8 flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400" aria-label="Breadcrumb">
-    <a href="{{ "/" | relURL }}" class="transition hover:text-brand-700 dark:hover:text-brand-300">Brand</a>
+    <a href="{{ "/" | relLangURL }}" class="transition hover:text-brand-700 dark:hover:text-brand-300">{{ $ui.breadcrumb }}</a>
     <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m9 5 7 7-7 7" /></svg>
     <span class="text-gray-700 dark:text-gray-300">{{ .Title }}</span>
   </nav>
