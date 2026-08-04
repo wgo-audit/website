@@ -11,6 +11,31 @@ compatibility_date = '2026-08-03'
 [vars]
 UMAMI_ENDPOINT = 'https://cloud.umami.is/api/send'
 UMAMI_GEO_IP_MODE = 'full'
+# Contact form From identity (safe to commit — it's a public address on the
+# onboarded domain). The recipient is CONTACT_TO, set as a runtime secret below.
+CONTACT_FROM = 'WGO Contact <privacy@wgo-audit.com>'
+
+# Contact form — Cloudflare Email send binding (no third-party email API). The
+# Worker calls env.CONTACT_EMAIL.send({ to: CONTACT_TO, from: CONTACT_FROM, ... }).
+# Sending to a VERIFIED Email Routing destination is free even on the routing-
+# only plan. Leaving destination_address off lets CONTACT_TO choose any verified
+# destination on the account.
+[[send_email]]
+name = 'CONTACT_EMAIL'
+
+# CONTACT_TO must be a VERIFIED Email Routing destination address (an inbox that
+# receives the mail — e.g. the address privacy@wgo-audit.com already forwards to),
+# NOT a routing address. It is not committed here; set it as a runtime secret:
+#   Dashboard → Worker → Settings → Variables and Secrets → add secret CONTACT_TO
+#   (or: npx wrangler secret put CONTACT_TO)
+
+# Optional: five submissions/minute per IP. The Worker fails open if this binding
+# is absent, so the form works without it. Uncomment to enable, then deploy.
+# [[unsafe.bindings]]
+# name = 'CONTACT_LIMITER'
+# type = 'ratelimit'
+# namespace_id = '2001'
+# simple = { limit = 5, period = 60 }
 
 # NOTE: no [build] here on purpose. Cloudflare Workers Builds already runs the
 # build via its configured build command (`npm run build` → build.sh) before the

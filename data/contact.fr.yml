@@ -1,0 +1,29 @@
+# Copie de la page de contact (content/contact.fr.md → layouts/_default/contact.html).
+# Garder contact.en.yml en phase.
+intro: "Des questions, des commentaires, ou l'envie de contribuer? Envoyez un mot et nous répondrons par courriel. Pour tout ce qui est public, les liens GitHub ci-dessous sont plus rapides."
+ways_title: "Autres façons de nous joindre"
+channels:
+  - label: "privacy@wgo-audit.com"
+    url: "mailto:privacy@wgo-audit.com"
+    desc: "Écrivez directement au responsable."
+    icon: mail
+  - label: "Discussions GitHub"
+    url: "https://github.com/orgs/wgo-audit/discussions"
+    desc: "Posez une question ou partagez une idée au grand jour."
+    external: true
+    icon: chat
+  - label: "Signaler un problème"
+    url: "https://github.com/wgo-audit/code/issues"
+    desc: "Un bogue dans l'outil? Ouvrez un signalement."
+    external: true
+    icon: bug
+form:
+  name: "Votre nom"
+  email: "Adresse de courriel"
+  subject: "Objet"
+  subject_optional: "facultatif"
+  message: "Message"
+  consent_before: "J'accepte que mon message soit envoyé par courriel au responsable et traité selon l'"
+  consent_link: "avis de confidentialité"
+  consent_after: "."
+  submit: "Envoyer le message"

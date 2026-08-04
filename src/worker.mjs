@@ -46,12 +46,19 @@ const WORKER_UA_FALLBACK =
 
 export default {
   async fetch(request, env, ctx) {
+    const url = new URL(request.url);
     const method = request.method;
+
+    // Contact form — a plain HTML POST, handled here and mailed via Cloudflare
+    // Email (no third-party email API). See handleContact below.
+    if (url.pathname === CONTACT_ENDPOINT) {
+      return handleContact(request, env);
+    }
+
     if (method !== "GET" && method !== "HEAD") {
       return env.ASSETS.fetch(request);
     }
 
-    const url = new URL(request.url);
 
     // Guard against any asset request that slipped past the wrangler glob.
     if (ASSET_EXT_RE.test(url.pathname)) {
@@ -234,5 +241,188 @@ function truncateIP(ip) {
   return null;
 }
 
+/* ---------------------------------------------------------------------------
+   Contact form
+
+   A plain HTML POST — no JavaScript on the page. The form is validated here and
+   mailed with Cloudflare Email (the `CONTACT_EMAIL` send binding), then answered
+   with a 303 to the confirmation page so a refresh cannot resubmit it.
+
+   Config:
+     - CONTACT_EMAIL : send binding (wrangler.toml [[send_email]])
+     - CONTACT_TO    : the VERIFIED Email Routing destination that receives the
+                       mail — an inbox, not a routing address (runtime var/secret)
+     - CONTACT_FROM  : the From identity, on an onboarded domain
+                       (default "WGO Contact <privacy@wgo-audit.com>")
+     - CONTACT_LIMITER : optional Workers rate-limit binding (fails open)
+   --------------------------------------------------------------------------- */
+const CONTACT_ENDPOINT = "/api/contact";
+
+// Long enough for a real enquiry, short enough that the endpoint cannot relay
+// bulk content through our domain.
+const FIELD_LIMITS = { name: 100, email: 254, subject: 120, message: 5000 };
+
+const FALLBACK_REDIRECT = { en: "/en/contact/sent/", fr: "/fr/contact/envoye/" };
+
+async function handleContact(request, env) {
+  if (request.method !== "POST") {
+    return new Response("Method not allowed", { status: 405, headers: { allow: "POST" } });
+  }
+
+  let form;
+  try {
+    form = await request.formData();
+  } catch {
+    return contactError(request, "en", 400);
+  }
+
+  const field = (name) => String(form.get(name) || "").trim();
+  const locale = field("locale") === "fr" ? "fr" : "en";
+
+  if (!(await withinRateLimit(request, env))) {
+    return contactError(request, locale, 429);
+  }
+
+  // The honeypot is invisible and untabbable, so only a bot fills it. Answer as
+  // if it worked: a bot told it failed simply tries again, differently.
+  if (field("website")) {
+    return redirectAfterPost(request, safeRedirect(field("redirect"), locale));
+  }
+
+  const name = field("name");
+  const email = field("email");
+  const message = field("message");
+
+  if (!name || !email || !message) return contactError(request, locale, 400);
+  if (!form.get("consent")) return contactError(request, locale, 400);
+  if (!isEmail(email)) return contactError(request, locale, 400);
+  if (oversized(field)) return contactError(request, locale, 413);
+
+  if (!env.CONTACT_EMAIL || !env.CONTACT_TO) {
+    console.error("contact form: CONTACT_EMAIL binding or CONTACT_TO is not configured");
+    return contactError(request, locale, 500);
+  }
+
+  const details = [`Name: ${name}`, `Email: ${email}`, `Language: ${locale}`];
+  const body = `${details.join("\n")}\n\n${message}`;
+
+  // headerSafe on everything that lands in a header: a newline in the name or the
+  // address is a mail-header injection. The body is not a header.
+  try {
+    await env.CONTACT_EMAIL.send({
+      from: env.CONTACT_FROM || "WGO Contact <privacy@wgo-audit.com>",
+      to: env.CONTACT_TO,
+      replyTo: headerSafe(email),
+      subject: headerSafe(`${field("subject") || "WGO contact"} — ${name}`),
+      text: body,
+    });
+  } catch (err) {
+    // Never log the body — it is the visitor's message.
+    console.error("contact form: send failed:", err && err.message);
+    return contactError(request, locale, 502);
+  }
+
+  return redirectAfterPost(request, safeRedirect(field("redirect"), locale));
+}
+
+/**
+ * Five submissions a minute per IP. Best-effort and per-colo — a brake on
+ * floods, not an exact quota. Fails open: if the binding is missing (local dev)
+ * or errors, the form still works. A form that silently stops accepting mail is
+ * a worse failure than one that accepts a burst.
+ */
+async function withinRateLimit(request, env) {
+  if (!env.CONTACT_LIMITER) return true;
+  const key = request.headers.get("cf-connecting-ip");
+  if (!key) return true;
+  try {
+    const { success } = await env.CONTACT_LIMITER.limit({ key });
+    return success;
+  } catch {
+    console.error("contact form: rate limiter unavailable");
+    return true;
+  }
+}
+
+function isEmail(value) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) && value.length <= FIELD_LIMITS.email;
+}
+
+function oversized(field) {
+  return Object.entries(FIELD_LIMITS).some(([name, limit]) => field(name).length > limit);
+}
+
+// CR and LF are the whole of a header-injection attack. Strip, do not escape.
+function headerSafe(value) {
+  return String(value).replace(/[\r\n]+/g, " ").trim();
+}
+
+// Only ever redirect to a path on this site. "//evil.example" is a protocol-
+// relative URL and would leave the origin, so a leading "/" alone is not enough.
+function safeRedirect(candidate, locale) {
+  const fallback = FALLBACK_REDIRECT[locale];
+  if (!candidate.startsWith("/") || candidate.startsWith("//")) return fallback;
+  return candidate;
+}
+
+function redirectAfterPost(request, path) {
+  const url = new URL(request.url);
+  url.pathname = path;
+  url.search = "";
+  // 303, not 302: the follow-up must be a GET, or a refresh resubmits the form.
+  return new Response(null, {
+    status: 303,
+    headers: { location: url.toString(), "cache-control": "no-store" },
+  });
+}
+
+function contactError(request, locale, status) {
+  const back = locale === "fr" ? "/fr/contact/" : "/en/contact/";
+  const throttled = status === 429;
+  const copy =
+    locale === "fr"
+      ? {
+          lang: "fr-CA",
+          title: throttled ? "Trop de tentatives" : "Le message n'a pas pu être envoyé",
+          body: throttled
+            ? "Vous avez envoyé plusieurs messages coup sur coup. Patientez une minute et réessayez, ou écrivez directement à privacy@wgo-audit.com."
+            : "Une erreur est survenue. Réessayez, ou écrivez directement à privacy@wgo-audit.com.",
+          link: "Retour au formulaire",
+        }
+      : {
+          lang: "en-CA",
+          title: throttled ? "Too many attempts" : "Your message could not be sent",
+          body: throttled
+            ? "You have sent several messages in quick succession. Please wait a minute and try again, or write directly to privacy@wgo-audit.com."
+            : "Something went wrong. Please try again, or write directly to privacy@wgo-audit.com.",
+          link: "Back to the form",
+        };
+
+  const html = `<!doctype html>
+<html lang="${copy.lang}">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex"><title>${copy.title}</title>
+<style>:root{color-scheme:light dark}body{margin:0;min-height:100vh;display:grid;place-items:center;
+font:16px/1.6 system-ui,sans-serif;background:#fff;color:#0a1424;padding:2rem}
+@media(prefers-color-scheme:dark){body{background:#060d18;color:#e5e7eb}}
+main{max-width:32rem}h1{font-size:1.5rem;margin:0 0 .5rem}a{color:#0d9488;font-weight:600}</style></head>
+<body><main><h1>${copy.title}</h1><p>${copy.body}</p><p><a href="${back}">${copy.link}</a></p></main></body></html>`;
+
+  return new Response(html, {
+    status,
+    headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" },
+  });
+}
+
 // Exported for unit tests.
-export { extractUtm, truncateIP, firstLanguage, getUmamiWebsiteId, requestForAssetHost };
+export {
+  extractUtm,
+  truncateIP,
+  firstLanguage,
+  getUmamiWebsiteId,
+  requestForAssetHost,
+  isEmail,
+  headerSafe,
+  safeRedirect,
+  oversized,
+};

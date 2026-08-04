@@ -46,3 +46,5 @@ view_license:
   other: "View licence"
 nav_legal:
   other: "Legal"
+nav_contact:
+  other: "Contact"

@@ -1,0 +1,96 @@
+{{ define "main" }}
+{{- $page := . -}}
+{{- $c := index hugo.Data (printf "contact.%s" .Site.Language.Lang) -}}
+{{- $privacy := .Site.GetPage "/legal/privacy" -}}
+{{- $sent := .Site.GetPage "/contact-sent" -}}
+{{- $icons := dict
+  "mail" "M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
+  "chat" "M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z"
+  "bug" "m19.5 14.25-2.036 2.036m0 0A9 9 0 1 0 7.5 5.464m9.964 10.822L21 21m-4.5-4.5A8.966 8.966 0 0 1 12 18a8.966 8.966 0 0 1-4.5-1.5m9-11.036L12 8.25 7.5 5.464"
+-}}
+
+<div class="mx-auto max-w-6xl px-6 py-16 lg:px-8 lg:py-20">
+  <header class="max-w-3xl">
+    <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl dark:text-white">{{ .Title }}</h1>
+    {{ with $c.intro }}<p class="mt-4 text-lg text-gray-600 dark:text-gray-300">{{ . }}</p>{{ end }}
+  </header>
+
+  <div class="mt-14 grid grid-cols-1 gap-x-10 gap-y-14 lg:grid-cols-2">
+
+    {{- /* Other ways to reach us — first in the markup so it leads on mobile. */ -}}
+    <div>
+      <h2 class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ $c.ways_title }}</h2>
+      <ul role="list" class="mt-6 space-y-6">
+        {{- range $c.channels }}
+        <li class="flex gap-x-4">
+          <span class="mt-0.5 flex-none text-brand-600 dark:text-brand-400">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="{{ index $icons .icon }}" /></svg>
+          </span>
+          <div>
+            <a href="{{ .url | safeURL }}"{{ if .external }} target="_blank" rel="noopener"{{ end }} class="inline-flex items-center gap-1 text-sm font-semibold text-gray-900 transition hover:text-brand-700 dark:text-white dark:hover:text-brand-300">
+              {{ .label }}
+              {{- if .external }}<svg viewBox="0 0 10 10" aria-hidden="true" class="h-2.5 w-2.5 flex-none fill-none stroke-current stroke-[1.5]"><path d="M2 8 8 2M3.5 2H8v4.5" stroke-linecap="round" stroke-linejoin="round" /></svg>{{ end }}
+            </a>
+            <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">{{ .desc }}</p>
+          </div>
+        </li>
+        {{- end }}
+      </ul>
+    </div>
+
+    {{- /* The form — a plain POST to the Worker, which mails it and redirects to
+           the confirmation page. No JavaScript anywhere in this form. */ -}}
+    {{- with $c.form }}
+    <div class="lg:order-last">
+      <form action="/api/contact" method="post" class="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 dark:border-white/10 dark:bg-ink-900">
+        <input type="hidden" name="locale" value="{{ $page.Site.Language.Lang }}">
+        <input type="hidden" name="redirect" value="{{ with $sent }}{{ .RelPermalink }}{{ end }}">
+
+        {{- /* Honeypot: hidden from sight, screen readers, and the tab order. */ -}}
+        <div class="hidden" aria-hidden="true">
+          <label for="c-website">Website</label>
+          <input type="text" id="c-website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="space-y-5">
+          <div>
+            <label for="c-name" class="block text-sm font-medium text-gray-900 dark:text-gray-100">{{ .name }}</label>
+            <input type="text" id="c-name" name="name" required autocomplete="name" maxlength="100"
+              class="mt-1.5 block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 focus:outline-none dark:border-white/15 dark:bg-ink-950 dark:text-white">
+          </div>
+          <div>
+            <label for="c-email" class="block text-sm font-medium text-gray-900 dark:text-gray-100">{{ .email }}</label>
+            <input type="email" id="c-email" name="email" required autocomplete="email" maxlength="254"
+              class="mt-1.5 block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 focus:outline-none dark:border-white/15 dark:bg-ink-950 dark:text-white">
+          </div>
+          <div>
+            <label for="c-subject" class="block text-sm font-medium text-gray-900 dark:text-gray-100">{{ .subject }} <span class="font-normal text-gray-400">({{ .subject_optional }})</span></label>
+            <input type="text" id="c-subject" name="subject" autocomplete="off" maxlength="120"
+              class="mt-1.5 block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 focus:outline-none dark:border-white/15 dark:bg-ink-950 dark:text-white">
+          </div>
+          <div>
+            <label for="c-message" class="block text-sm font-medium text-gray-900 dark:text-gray-100">{{ .message }}</label>
+            <textarea id="c-message" name="message" required rows="6" maxlength="5000"
+              class="mt-1.5 block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 focus:outline-none dark:border-white/15 dark:bg-ink-950 dark:text-white"></textarea>
+          </div>
+        </div>
+
+        <div class="mt-6 flex gap-x-3">
+          <input type="checkbox" id="c-consent" name="consent" required
+            class="mt-0.5 size-5 flex-none rounded border-gray-300 accent-brand-600 dark:border-white/20">
+          <label for="c-consent" class="text-sm text-gray-600 dark:text-gray-300">
+            {{ .consent_before }}
+            <a href="{{ with $privacy }}{{ .RelPermalink }}{{ end }}" class="font-semibold text-brand-700 underline underline-offset-2 dark:text-brand-300">{{ .consent_link }}</a>{{ .consent_after }}
+          </label>
+        </div>
+
+        <button type="submit" class="mt-8 inline-flex w-full items-center justify-center rounded-lg bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-500 sm:w-auto">
+          {{ .submit }}
+        </button>
+      </form>
+    </div>
+    {{- end }}
+
+  </div>
+</div>
+{{ end }}

@@ -6,6 +6,10 @@ import {
   firstLanguage,
   getUmamiWebsiteId,
   requestForAssetHost,
+  isEmail,
+  headerSafe,
+  safeRedirect,
+  oversized,
 } from "./worker.mjs";
 import { detectBot } from "./lib/analytics-policy.mjs";
 
@@ -80,4 +84,32 @@ test("detectBot tags known crawlers and passes humans", () => {
     ),
     null,
   );
+});
+
+test("isEmail accepts a plausible address and rejects junk", () => {
+  assert.equal(isEmail("someone@example.com"), true);
+  assert.equal(isEmail("no-at-sign"), false);
+  assert.equal(isEmail("a@b"), false);
+  assert.equal(isEmail("spaces in@example.com"), false);
+  assert.equal(isEmail("x".repeat(250) + "@example.com"), false); // over 254
+});
+
+test("headerSafe strips CR/LF to defeat header injection", () => {
+  assert.equal(headerSafe("Real Name"), "Real Name");
+  assert.equal(headerSafe("evil\r\nBcc: victim@example.com"), "evil Bcc: victim@example.com");
+  assert.equal(headerSafe("  trimmed \n"), "trimmed");
+});
+
+test("safeRedirect only allows same-site paths", () => {
+  assert.equal(safeRedirect("/en/contact/sent/", "en"), "/en/contact/sent/");
+  assert.equal(safeRedirect("//evil.example", "en"), "/en/contact/sent/"); // protocol-relative
+  assert.equal(safeRedirect("https://evil.example", "fr"), "/fr/contact/envoye/");
+  assert.equal(safeRedirect("", "fr"), "/fr/contact/envoye/");
+});
+
+test("oversized flags a field past its limit", () => {
+  const under = (name) => (name === "message" ? "x".repeat(100) : "ok");
+  const over = (name) => (name === "message" ? "x".repeat(6000) : "ok");
+  assert.equal(oversized(under), false);
+  assert.equal(oversized(over), true);
 });

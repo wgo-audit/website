@@ -15,6 +15,7 @@
       <a href="{{ $home }}#perspectives" class="text-sm font-medium text-gray-600 transition hover:text-brand-700 dark:text-gray-300 dark:hover:text-brand-300">{{ i18n "nav_perspectives" }}</a>
       <a href="{{ $home }}#philosophy" class="text-sm font-medium text-gray-600 transition hover:text-brand-700 dark:text-gray-300 dark:hover:text-brand-300">{{ i18n "nav_philosophy" }}</a>
       <a href="{{ .Site.Params.docs }}" class="text-sm font-medium text-gray-600 transition hover:text-brand-700 dark:text-gray-300 dark:hover:text-brand-300" target="_blank" rel="noopener">{{ i18n "nav_docs" }}</a>
+      <a href="{{ "/contact/" | relLangURL }}" class="text-sm font-medium text-gray-600 transition hover:text-brand-700 dark:text-gray-300 dark:hover:text-brand-300">{{ i18n "nav_contact" }}</a>
     </nav>
 
     {{- /* Right controls */ -}}
@@ -46,6 +47,7 @@
       <a href="{{ $home }}#perspectives" class="rounded-md px-2 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-white/5">{{ i18n "nav_perspectives" }}</a>
       <a href="{{ $home }}#philosophy" class="rounded-md px-2 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-white/5">{{ i18n "nav_philosophy" }}</a>
       <a href="{{ .Site.Params.docs }}" target="_blank" rel="noopener" class="rounded-md px-2 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-white/5">{{ i18n "nav_docs" }}</a>
+      <a href="{{ "/contact/" | relLangURL }}" class="rounded-md px-2 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-white/5">{{ i18n "nav_contact" }}</a>
       <a href="{{ .Site.Params.github }}#five-minute-start" target="_blank" rel="noopener" class="mt-2 rounded-md bg-brand-600 px-3.5 py-2.5 text-center text-base font-semibold text-white hover:bg-brand-500">{{ i18n "cta_get_started" }}</a>
     </div>
   </nav>
