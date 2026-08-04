@@ -1,0 +1,32 @@
+{{ define "main" }}
+{{- $kind := .Params.showcase -}}
+<div class="mx-auto max-w-6xl px-6 py-12 lg:px-8">
+
+  {{- /* Breadcrumb */ -}}
+  <nav class="mb-8 flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400" aria-label="Breadcrumb">
+    <a href="{{ "/" | relURL }}" class="transition hover:text-brand-700 dark:hover:text-brand-300">Brand</a>
+    <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m9 5 7 7-7 7" /></svg>
+    <span class="text-gray-700 dark:text-gray-300">{{ .Title }}</span>
+  </nav>
+
+  {{- /* Page header */ -}}
+  <header class="max-w-3xl">
+    {{ with .Params.eyebrow }}<p class="font-mono text-sm font-medium text-brand-700 dark:text-brand-400">{{ . }}</p>{{ end }}
+    <h1 class="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl dark:text-white">{{ .Title }}</h1>
+    {{ with .Description }}<p class="mt-4 text-lg text-gray-600 dark:text-gray-300">{{ . }}</p>{{ end }}
+  </header>
+
+  {{- /* Optional short markdown intro */ -}}
+  {{ with .Content }}<div class="brand-body mt-8 max-w-3xl">{{ . }}</div>{{ end }}
+
+  {{- /* Kind-specific visual showcase */ -}}
+  <div class="mt-14">
+    {{ if eq $kind "logo" }}{{ partial "brand/showcase-logo.html" . }}
+    {{ else if eq $kind "color" }}{{ partial "brand/showcase-color.html" . }}
+    {{ else if eq $kind "typography" }}{{ partial "brand/showcase-typography.html" . }}
+    {{ else if eq $kind "voice" }}{{ partial "brand/showcase-voice.html" . }}
+    {{ end }}
+  </div>
+
+</div>
+{{ end }}

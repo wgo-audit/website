@@ -1,4 +1,7 @@
 {{ define "main" }}
+{{ if eq .Site.Params.siteKind "brand" }}
+{{ partial "brand/home.html" . }}
+{{ else }}
 {{ partial "sections/hero.html" . }}
 {{ partial "sections/flow.html" . }}
 {{ partial "sections/principles.html" . }}
@@ -6,4 +9,5 @@
 {{ partial "sections/perspectives.html" . }}
 {{ partial "sections/philosophy.html" . }}
 {{ partial "sections/cta.html" . }}
+{{ end }}
 {{ end }}

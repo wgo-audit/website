@@ -1,0 +1,79 @@
+{{- /* Voice principles */ -}}
+<section aria-labelledby="principles-heading">
+  <h2 id="principles-heading" class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">How WGO speaks</h2>
+  <div class="mt-6 grid gap-4 sm:grid-cols-3">
+    {{- range (slice
+      (dict "t" "Plain over clever" "d" "Short words, short sentences. If a founder needs a glossary to read it, rewrite it.")
+      (dict "t" "Evidence over assertion" "d" "State what was checked and where. Cite the source; let it carry the authority.")
+      (dict "t" "Honest about gaps" "d" "Name what is unknown in the same breath as what is known. Never fill silence with confidence.")
+    ) }}
+      <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-white/10 dark:bg-ink-900">
+        <h3 class="text-base font-semibold text-gray-900 dark:text-white">{{ .t }}</h3>
+        <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">{{ .d }}</p>
+      </div>
+    {{- end }}
+  </div>
+</section>
+
+{{- /* Say this, not that */ -}}
+<section aria-labelledby="pairs-heading" class="mt-16">
+  <h2 id="pairs-heading" class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Say this, not that</h2>
+  <div class="mt-6 space-y-4">
+    {{- range (slice
+      (dict
+        "yes" "Backups ran nightly for 30 days (ops/backup.log). Whether a restore has ever succeeded is unverified — no evidence found."
+        "no"  "Backups are fully working and disaster recovery is in place."
+        "why" "The second claim asserts what was never checked. The first separates the fact from the unknown.")
+      (dict
+        "yes" "Three of eight reviewers flag the shared admin account as a material risk."
+        "no"  "The system is basically secure with a few minor issues."
+        "why" "Vague reassurance hides the finding. Name it, count it, rank it.")
+      (dict
+        "yes" "We could not reach the payments owner this cycle, so revenue exposure is unconfirmed."
+        "no"  "Revenue looks healthy."
+        "why" "An inaccessible source is a limitation to report, not a gap to paper over.")
+    ) }}
+      <div class="grid gap-px overflow-hidden rounded-2xl border border-gray-200 bg-gray-200 md:grid-cols-2 dark:border-white/10 dark:bg-white/10">
+        <div class="bg-white p-5 dark:bg-ink-900">
+          <div class="flex items-center gap-1.5 text-xs font-semibold text-fact-700 dark:text-fact-400">
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+            Say this
+          </div>
+          <p class="mt-2 text-sm text-gray-800 dark:text-gray-200">{{ .yes }}</p>
+        </div>
+        <div class="bg-white p-5 dark:bg-ink-900">
+          <div class="flex items-center gap-1.5 text-xs font-semibold text-conflict-700 dark:text-conflict-400">
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+            Not that
+          </div>
+          <p class="mt-2 text-sm text-gray-500 line-through decoration-conflict-300 dark:text-gray-500">{{ .no }}</p>
+        </div>
+        <div class="bg-gray-50 px-5 py-3 md:col-span-2 dark:bg-ink-800/50">
+          <p class="text-xs text-gray-500 dark:text-gray-400"><span class="font-semibold text-gray-600 dark:text-gray-300">Why:</span> {{ .why }}</p>
+        </div>
+      </div>
+    {{- end }}
+  </div>
+</section>
+
+{{- /* Naming */ -}}
+<section aria-labelledby="naming-heading" class="mt-16">
+  <h2 id="naming-heading" class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Naming</h2>
+  <div class="mt-6 overflow-hidden rounded-2xl border border-gray-200 dark:border-white/10">
+    <table class="w-full text-left text-sm">
+      <tbody class="divide-y divide-gray-100 dark:divide-white/10">
+        {{- range (slice
+          (dict "k" "Product" "v" "Whats.Going.On. — written in full with the trailing period, or WGO. Never “Wgo” or “W.G.O.”.")
+          (dict "k" "Reviewers" "v" "Lower-case, hyphenated identifiers: business-continuity, code-quality. They are IDs, not titles.")
+          (dict "k" "Commands" "v" "Monospace, with the leading slash: /wgo_onboard. Never reflowed into prose.")
+          (dict "k" "The states" "v" "Facts, Unknowns, Conflicts — capitalised when named as the system, lower-case in a sentence.")
+        ) }}
+          <tr class="bg-white dark:bg-ink-900">
+            <th scope="row" class="w-40 px-5 py-4 align-top font-semibold text-gray-900 dark:text-white">{{ .k }}</th>
+            <td class="px-5 py-4 text-gray-600 dark:text-gray-300">{{ .v | safeHTML }}</td>
+          </tr>
+        {{- end }}
+      </tbody>
+    </table>
+  </div>
+</section>

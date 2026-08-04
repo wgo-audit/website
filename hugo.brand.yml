@@ -1,11 +1,12 @@
-# Brand standards site (brand.wgo-audit.com) — DEFERRED STUB.
+# Brand standards site — brand.wgo-audit.com
 #
-# This config exists so the plumbing is ready: the Worker already routes the
-# brand host to the /brand asset subtree, and enabling the site later is a
-# matter of (1) adding pages under brand-content/, (2) uncommenting the brand
-# build line in build.sh, and (3) uncommenting the brand route in wrangler.toml.
+# A deliberately small, Red Hat / Primer-style brand hub: an overview plus four
+# focused standards pages (Logo, Colour, Typography, Voice). Built as a separate
+# Hugo site from brand-content/, deployed into the shared asset bucket under
+# /brand, and routed there by the Worker (see src/worker.mjs + wrangler.toml).
 #
-# Nothing here is built or published yet.
+# EN-first by design. FR is a content-only add later (add fr under languages,
+# flip defaultContentLanguageInSubdir if desired, and translate brand-content/).
 baseURL: "https://brand.wgo-audit.com/"
 title: "WGO Brand"
 
@@ -26,22 +27,47 @@ languages:
     label: English
     weight: 1
     params:
-      description: "Brand standards and design system for WGO."
-  fr:
-    locale: fr-CA
-    label: Français
-    weight: 2
-    params:
-      description: "Normes de marque et système de design pour WGO."
+      description: "The WGO brand: one evidence target, a disciplined palette, and a voice that never dresses up a guess as a fact."
+      tagline: "Brand standards for Whats.Going.On."
+
+# All brand pages resolve to the layouts/brand/ templates and carry the brand
+# chrome (header/footer) via siteKind.
+cascade:
+  - target:
+      path: "/**"
+    type: brand
 
 params:
   siteKind: "brand"
+  mainSite: "https://wgo-audit.com/"
   github: "https://github.com/wgo-audit/code"
+  org: "https://github.com/wgo-audit"
+
+# Light top nav — the four standards pages. The overview is the wordmark link.
+menu:
+  main:
+    - name: Logo
+      pageRef: /logo
+      weight: 1
+    - name: Colour
+      pageRef: /color
+      weight: 2
+    - name: Typography
+      pageRef: /typography
+      weight: 3
+    - name: Voice
+      pageRef: /voice
+      weight: 4
 
 markup:
   goldmark:
     renderer:
       unsafe: true
+
+sitemap:
+  changefreq: monthly
+  priority: 0.5
+  filename: sitemap.xml
 
 outputs:
   home:

@@ -1,0 +1,96 @@
+# Brand tokens for the standards site (brand.wgo-audit.com).
+# These MIRROR the @theme design tokens in assets/css/main.css. main.css stays
+# the single source of truth for the running site; this file exists so the brand
+# showcase pages can render swatches and specimens with labels + hex values.
+# If you change a value here, change it in main.css too (and vice-versa).
+
+colour:
+  brand:
+    name: "Brand — Teal"
+    role: "The WGO wordmark and every primary action. Brand-600 is the anchor; 500 lifts it on dark."
+    anchor: "brand-600"
+    swatches:
+      - { step: "50", hex: "#f0fdfa" }
+      - { step: "100", hex: "#ccfbf1" }
+      - { step: "200", hex: "#99f6e4" }
+      - { step: "300", hex: "#5eead4" }
+      - { step: "400", hex: "#2dd4bf" }
+      - { step: "500", hex: "#14b8a6" }
+      - { step: "600", hex: "#0d9488" }
+      - { step: "700", hex: "#0f766e" }
+      - { step: "800", hex: "#115e59" }
+      - { step: "900", hex: "#134e4a" }
+      - { step: "950", hex: "#042f2e" }
+  ink:
+    name: "Ink — Deep navy"
+    role: "The canvas and terminal surfaces. Ink-950 is the dark-mode background; the lighter steps build panels and borders."
+    anchor: "ink-950"
+    swatches:
+      - { step: "600", hex: "#1e3350" }
+      - { step: "700", hex: "#16283f" }
+      - { step: "800", hex: "#0f1e33" }
+      - { step: "900", hex: "#0a1424" }
+      - { step: "950", hex: "#060d18" }
+
+# The evidence semantic system — WGO's signature. Never decorative: each colour
+# maps to one epistemic state and one only. A fact never quietly becomes an
+# unknown; an unknown is never dressed up as a conflict.
+evidence:
+  - key: fact
+    name: "Facts"
+    tone: "Green"
+    meaning: "Verified and traceable to a source you can open."
+    anchor: "fact-500"
+    swatches:
+      - { step: "50", hex: "#ecfdf5" }
+      - { step: "100", hex: "#d1fae5" }
+      - { step: "400", hex: "#34d399" }
+      - { step: "500", hex: "#10b981" }
+      - { step: "600", hex: "#059669" }
+      - { step: "700", hex: "#047857" }
+  - key: unknown
+    name: "Unknowns"
+    tone: "Amber"
+    meaning: "Missing or unverified — named plainly, never filled with confident prose."
+    anchor: "unknown-500"
+    swatches:
+      - { step: "50", hex: "#fffbeb" }
+      - { step: "100", hex: "#fef3c7" }
+      - { step: "400", hex: "#fbbf24" }
+      - { step: "500", hex: "#f59e0b" }
+      - { step: "600", hex: "#d97706" }
+      - { step: "700", hex: "#b45309" }
+  - key: conflict
+    name: "Conflicts"
+    tone: "Red"
+    meaning: "Differing or contradictory signals, surfaced and then reconciled."
+    anchor: "conflict-500"
+    swatches:
+      - { step: "50", hex: "#fef2f2" }
+      - { step: "100", hex: "#fee2e2" }
+      - { step: "400", hex: "#f87171" }
+      - { step: "500", hex: "#ef4444" }
+      - { step: "600", hex: "#dc2626" }
+      - { step: "700", hex: "#b91c1c" }
+
+type:
+  families:
+    - name: "Inter"
+      role: "Interface & prose"
+      stack: "InterVariable, Inter, system-ui, sans-serif"
+      class: "font-sans"
+      note: "A variable font (weights 100–900) self-hosted as one .woff2. Open source, SIL Open Font License."
+      sample: "Find out what is true, what is risky, and what needs to happen next."
+    - name: "JetBrains Mono"
+      role: "Code, commands & evidence"
+      stack: "JetBrains Mono, ui-monospace, monospace"
+      class: "font-mono"
+      note: "Used wherever exactness matters — install commands, file paths, cited evidence. Open source, SIL Open Font License."
+      sample: "git clone https://github.com/wgo-audit/code.git"
+  scale:
+    - { name: "Display", class: "text-5xl font-bold tracking-tight", meta: "48px / 700" }
+    - { name: "Heading 1", class: "text-3xl font-bold tracking-tight", meta: "30px / 700" }
+    - { name: "Heading 2", class: "text-xl font-semibold", meta: "20px / 600" }
+    - { name: "Body", class: "text-base", meta: "16px / 400" }
+    - { name: "Small", class: "text-sm text-gray-600 dark:text-gray-400", meta: "14px / 400" }
+    - { name: "Mono", class: "text-sm font-mono", meta: "14px / 400 mono" }

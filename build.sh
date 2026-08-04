@@ -75,10 +75,12 @@ main() {
   echo "Copying default-language 404 to site root..."
   cp public/en/404.html public/404.html
 
-  # Brand site (brand.wgo-audit.com) — DEFERRED. Uncomment when brand-content/
-  # has pages and the brand route is enabled in wrangler.toml.
-  # echo "Building the brand site..."
-  # hugo build --config hugo.brand.yml --destination public/brand --gc --minify
+  # Brand site (brand.wgo-audit.com) — built into the shared asset bucket under
+  # /brand, where the Worker routes the brand host (see src/worker.mjs).
+  echo "Building the brand site..."
+  hugo build --config hugo.brand.yml --destination public/brand --gc --minify
+  # The brand build emits public/brand/404.html at the brand root already;
+  # the Worker rewrites brand-host misses to /brand/* so that 404 is served.
 }
 
 main "$@"

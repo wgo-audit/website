@@ -15,11 +15,11 @@
       class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-brand-600 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
       >{{ i18n "skip_to_content" }}</a
     >
-    {{ partial "header.html" . }}
+    {{ if eq .Site.Params.siteKind "brand" }}{{ partial "brand/header.html" . }}{{ else }}{{ partial "header.html" . }}{{ end }}
     <main id="main" class="flex-1">
       {{ block "main" . }}{{ end }}
     </main>
-    {{ partial "footer.html" . }}
+    {{ if eq .Site.Params.siteKind "brand" }}{{ partial "brand/footer.html" . }}{{ else }}{{ partial "footer.html" . }}{{ end }}
     {{- /* Site behaviour: theme toggle, mobile menu, copy button. Deferred. */ -}}
     {{ $app := resources.Get "js/app.js" | js.Build (dict "minify" true) | resources.Fingerprint "sha256" }}
     <script defer src="{{ $app.RelPermalink }}" integrity="{{ $app.Data.Integrity }}"></script>

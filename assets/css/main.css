@@ -138,4 +138,75 @@
       linear-gradient(to bottom, rgb(45 212 191 / 0.08) 1px, transparent 1px);
     background-size: 40px 40px;
   }
+
+  /* Minimal prose for short markdown intros on the brand site. Kept small on
+     purpose so we don't pull in the full typography plugin for a few pages. */
+  .brand-body {
+    color: var(--color-gray-600);
+    line-height: 1.7;
+  }
+  .dark .brand-body {
+    color: var(--color-gray-300);
+  }
+  .brand-body > * + * {
+    margin-top: 1.25em;
+  }
+  .brand-body h2 {
+    margin-top: 2em;
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-gray-900);
+  }
+  .dark .brand-body h2 {
+    color: #fff;
+  }
+  .brand-body h3 {
+    margin-top: 1.5em;
+    font-weight: 600;
+    color: var(--color-gray-900);
+  }
+  .dark .brand-body h3 {
+    color: #fff;
+  }
+  .brand-body a {
+    color: var(--color-brand-700);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .dark .brand-body a {
+    color: var(--color-brand-300);
+  }
+  .brand-body ul,
+  .brand-body ol {
+    padding-left: 1.4em;
+  }
+  .brand-body ul {
+    list-style: disc;
+  }
+  .brand-body ol {
+    list-style: decimal;
+  }
+  .brand-body li + li {
+    margin-top: 0.4em;
+  }
+  .brand-body strong {
+    font-weight: 600;
+    color: var(--color-gray-900);
+  }
+  .dark .brand-body strong {
+    color: #f3f4f6;
+  }
+  .brand-body code {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    border-radius: 0.3rem;
+    padding: 0.1em 0.35em;
+    background: var(--color-gray-100);
+    color: var(--color-brand-800);
+  }
+  .dark .brand-body code {
+    background: var(--color-ink-800);
+    color: var(--color-brand-300);
+  }
 }

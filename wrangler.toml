@@ -54,12 +54,12 @@ custom_domain = true
 pattern = "www.wgo-audit.com"
 custom_domain = true
 
-# Brand site (brand.wgo-audit.com) — DEFERRED. The Worker already knows how to
-# route this host to the /brand asset subtree, but the route stays commented
-# until the brand site is built so it can't serve 404s.
-# [[routes]]
-# pattern = "brand.wgo-audit.com"
-# custom_domain = true
+# Brand site (brand.wgo-audit.com). The Worker rewrites this host to the /brand
+# asset subtree (see requestForAssetHost in src/worker.mjs). Attach the custom
+# domain in the Cloudflare dashboard once DNS for the subdomain is in place.
+[[routes]]
+pattern = "brand.wgo-audit.com"
+custom_domain = true
 
 [observability]
 [observability.logs]
