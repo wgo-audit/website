@@ -10,6 +10,7 @@ import {
   headerSafe,
   safeRedirect,
   oversized,
+  contactRecipients,
 } from "./worker.mjs";
 import { detectBot } from "./lib/analytics-policy.mjs";
 
@@ -112,4 +113,12 @@ test("oversized flags a field past its limit", () => {
   const over = (name) => (name === "message" ? "x".repeat(6000) : "ok");
   assert.equal(oversized(under), false);
   assert.equal(oversized(over), true);
+});
+
+test("contactRecipients parses one or many verified destinations", () => {
+  assert.deepEqual(contactRecipients("a@example.com"), ["a@example.com"]);
+  assert.deepEqual(contactRecipients("a@example.com, b@example.org"), ["a@example.com", "b@example.org"]);
+  assert.deepEqual(contactRecipients("  a@x.com , ,b@y.com "), ["a@x.com", "b@y.com"]);
+  assert.deepEqual(contactRecipients(""), []);
+  assert.deepEqual(contactRecipients(undefined), []);
 });

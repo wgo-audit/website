@@ -298,7 +298,12 @@ async function handleContact(request, env) {
   if (!isEmail(email)) return contactError(request, locale, 400);
   if (oversized(field)) return contactError(request, locale, 413);
 
-  if (!env.CONTACT_EMAIL || !env.CONTACT_TO) {
+  // CONTACT_TO is a comma-separated list of VERIFIED Email Routing destinations
+  // (the inboxes the mail is delivered to — the same ones the inbound routing
+  // worker forwards to). Kept out of the public repo as a runtime secret.
+  const recipients = contactRecipients(env.CONTACT_TO);
+
+  if (!env.CONTACT_EMAIL || recipients.length === 0) {
     console.error("contact form: CONTACT_EMAIL binding or CONTACT_TO is not configured");
     return contactError(request, locale, 500);
   }
@@ -311,7 +316,7 @@ async function handleContact(request, env) {
   try {
     await env.CONTACT_EMAIL.send({
       from: env.CONTACT_FROM || "WGO Contact <privacy@wgo-audit.com>",
-      to: env.CONTACT_TO,
+      to: recipients,
       replyTo: headerSafe(email),
       subject: headerSafe(`${field("subject") || "WGO contact"} — ${name}`),
       text: body,
@@ -342,6 +347,15 @@ async function withinRateLimit(request, env) {
     console.error("contact form: rate limiter unavailable");
     return true;
   }
+}
+
+// CONTACT_TO → array of trimmed, non-empty recipient addresses. A single address
+// or a comma-separated list both work; the send binding delivers to each.
+function contactRecipients(value) {
+  return String(value || "")
+    .split(",")
+    .map((r) => r.trim())
+    .filter(Boolean);
 }
 
 function isEmail(value) {
@@ -425,4 +439,5 @@ export {
   headerSafe,
   safeRedirect,
   oversized,
+  contactRecipients,
 };

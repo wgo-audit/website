@@ -11,16 +11,21 @@ compatibility_date = '2026-08-03'
 [vars]
 UMAMI_ENDPOINT = 'https://cloud.umami.is/api/send'
 UMAMI_GEO_IP_MODE = 'full'
-# Contact form addresses (both on the wgo-audit.com Email Routing domain).
-#   CONTACT_FROM : the From identity shown to the recipient.
-#   CONTACT_TO   : where a submission is delivered — form@wgo-audit.com, which
-#                  Email Routing sends to the "everyone" Email Worker. Reply-To
-#                  is set to the visitor so replies reach them.
+# Contact form From identity (a public address on the onboarded domain — safe to
+# commit). Reply-To is set to the visitor so replies reach them.
 CONTACT_FROM = 'WGO Contact <privacy@wgo-audit.com>'
-CONTACT_TO = 'form@wgo-audit.com'
+
+# CONTACT_TO is the comma-separated list of VERIFIED Email Routing destination
+# addresses that receive submissions (the same inboxes the inbound routing worker
+# forwards to). It is NOT committed — this repo is public and those are personal
+# addresses. Set it as a runtime secret:
+#   npx wrangler secret put CONTACT_TO
+#   → e.g. "bh+cf@dicaire.com, patrick@drolet.name"
+# (or Dashboard → Worker → Settings → Variables and Secrets → add secret CONTACT_TO)
 
 # Contact form — Cloudflare Email send binding (no third-party email API). The
-# Worker calls env.CONTACT_EMAIL.send({ to: CONTACT_TO, from: CONTACT_FROM, ... }).
+# Worker calls env.CONTACT_EMAIL.send({ to: <CONTACT_TO list>, from: CONTACT_FROM }).
+# Sending to a verified destination is free even on the routing-only plan.
 [[send_email]]
 name = 'CONTACT_EMAIL'
 
