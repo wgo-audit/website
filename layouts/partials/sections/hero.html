@@ -1,0 +1,52 @@
+{{- $lang := .Site.Language.Lang -}}
+{{- $d := index hugo.Data (printf "home.%s" $lang) -}}
+{{- $h := $d.hero -}}
+<section class="relative overflow-hidden border-b border-gray-200/70 bg-white dark:border-white/10 dark:bg-ink-950">
+  <div class="grid-bg pointer-events-none absolute inset-0 opacity-60 [mask-image:radial-gradient(ellipse_at_top,black,transparent_75%)] dark:hidden"></div>
+  <div class="relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-28">
+    {{- /* Left — message */ -}}
+    <div>
+      <span class="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700 dark:border-brand-500/30 dark:bg-brand-500/10 dark:text-brand-300">
+        <span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span>{{ $h.badge }}
+      </span>
+      <h1 class="mt-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl dark:text-white">
+        <span class="text-brand-600 dark:text-brand-400">{{ $h.title_lead }}</span> {{ $h.title_rest }}
+      </h1>
+      <p class="mt-6 max-w-xl text-lg leading-relaxed text-gray-600 dark:text-gray-300">{{ $h.subtitle }}</p>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <a href="{{ $h.cta_primary.url }}" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 rounded-md bg-brand-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-500">
+          {{ $h.cta_primary.label }}
+          <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd" /></svg>
+        </a>
+        <a href="{{ $h.cta_secondary.url }}" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-1.5 rounded-md px-5 py-3 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 transition hover:bg-gray-50 dark:text-white dark:ring-white/15 dark:hover:bg-white/5">
+          {{ $h.cta_secondary.label }}
+        </a>
+      </div>
+
+      <p class="mt-6 flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+        <svg class="h-4 w-4 flex-none text-fact-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" /></svg>
+        {{ $h.note }}
+      </p>
+    </div>
+
+    {{- /* Right — install terminal (the one sanctioned dark surface) */ -}}
+    <div class="relative">
+      <div class="absolute -inset-4 -z-10 rounded-2xl bg-gradient-to-tr from-brand-500/20 via-transparent to-brand-400/10 blur-2xl"></div>
+      <div class="overflow-hidden rounded-xl border border-white/10 bg-ink-900 shadow-2xl shadow-brand-900/20 ring-1 ring-black/5">
+        <div class="flex items-center gap-2 border-b border-white/10 bg-white/5 px-4 py-3">
+          <span class="h-3 w-3 rounded-full bg-conflict-400/80"></span>
+          <span class="h-3 w-3 rounded-full bg-unknown-400/80"></span>
+          <span class="h-3 w-3 rounded-full bg-fact-400/80"></span>
+          <span class="ml-2 font-mono text-xs text-gray-400">{{ $h.terminal.title }}</span>
+          <button type="button" class="ml-auto rounded p-1 text-gray-400 transition hover:bg-white/10 hover:text-white [&.is-copied]:text-fact-400" data-copy="{{ $h.terminal.copy }}" data-copied-label="{{ i18n "copied" }}" aria-label="{{ i18n "copy_command" }}">
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" /></svg>
+          </button>
+        </div>
+        <pre class="overflow-x-auto p-5 font-mono text-[13px] leading-7"><code>{{- range $h.terminal.lines }}
+{{ if .muted }}<span class="text-gray-500">{{ .t }}</span>{{ else if .accent }}<span class="select-none text-brand-400">{{ .p }} </span><span class="text-brand-300">{{ .t }}</span>{{ else }}<span class="select-none text-brand-400">{{ .p }} </span><span class="text-gray-100">{{ .t }}</span>{{ end }}
+{{- end }}</code></pre>
+      </div>
+    </div>
+  </div>
+</section>

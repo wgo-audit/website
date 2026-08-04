@@ -1,0 +1,3 @@
+# Hugo emits a root "/" → "/en/" redirect automatically
+# (defaultContentLanguageInSubdir: true). Add host- or path-level
+# redirects here as the site grows.

@@ -1,0 +1,25 @@
+{
+  "name": "wgo-audit-website",
+  "version": "0.1.0",
+  "description": "Whats.Going.On. (WGO) — website for the open-source, evidence-led audit tool for startups and SMBs.",
+  "author": {
+    "name": "Benoît H. Dicaire",
+    "url": "https://github.com/wgo-audit"
+  },
+  "license": "MIT",
+  "scripts": {
+    "dev": "hugo server --config hugo.yml --buildDrafts",
+    "build": "chmod a+x build.sh && ./build.sh",
+    "build:hugo": "hugo --config hugo.yml --gc --minify",
+    "clean": "rm -rf public resources/_gen",
+    "test": "node --test \"src/**/*.test.mjs\"",
+    "format": "prettier --write \"{data,i18n}/**/*.{yml,yaml}\" \"*.{json,md,yml}\"",
+    "format:check": "prettier --check \"{data,i18n}/**/*.{yml,yaml}\" \"*.{json,md,yml}\""
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.13",
+    "prettier": "^3.8.3",
+    "tailwindcss": "^4.1.13",
+    "wrangler": "^4.42.0"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "Whats.Going.On.",
+  "short_name": "WGO",
+  "description": "Evidence-led audits for startups and SMBs.",
+  "start_url": "/en/",
+  "display": "standalone",
+  "background_color": "#0a1424",
+  "theme_color": "#0d9488",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any" }
+  ]
+}

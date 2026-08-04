@@ -1,0 +1,48 @@
+# Brand standards site (brand.wgo-audit.com) — DEFERRED STUB.
+#
+# This config exists so the plumbing is ready: the Worker already routes the
+# brand host to the /brand asset subtree, and enabling the site later is a
+# matter of (1) adding pages under brand-content/, (2) uncommenting the brand
+# build line in build.sh, and (3) uncommenting the brand route in wrangler.toml.
+#
+# Nothing here is built or published yet.
+baseURL: "https://brand.wgo-audit.com/"
+title: "WGO Brand"
+
+min_version: "0.158.0"
+
+contentDir: "brand-content"
+enableRobotsTXT: true
+enableGitInfo: true
+defaultContentLanguage: en
+defaultContentLanguageInSubdir: false
+disableKinds:
+  - taxonomy
+  - term
+
+languages:
+  en:
+    locale: en-CA
+    label: English
+    weight: 1
+    params:
+      description: "Brand standards and design system for WGO."
+  fr:
+    locale: fr-CA
+    label: Français
+    weight: 2
+    params:
+      description: "Normes de marque et système de design pour WGO."
+
+params:
+  siteKind: "brand"
+  github: "https://github.com/wgo-audit/code"
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+outputs:
+  home:
+    - HTML

@@ -1,0 +1,66 @@
+name = 'wgo-audit-website'
+main = 'src/worker.mjs'
+compatibility_date = '2026-05-01'
+
+# Non-secret runtime variables (safe to commit). The Umami website ID stays a
+# SECRET set in the dashboard (Settings → Variables and Secrets → runtime), not
+# here. UMAMI_GEO_IP_MODE controls how the visitor IP is forwarded to Umami:
+#   "full"     → forward the full IP (most accurate geo/city)
+#   "truncate" → network-prefix only (country-level geo, privacy-preserving)
+#   "none"     → send no IP at all
+[vars]
+UMAMI_ENDPOINT = 'https://cloud.umami.is/api/send'
+UMAMI_GEO_IP_MODE = 'full'
+
+# Cloudflare Workers Builds runs this on every push to the connected branch.
+# It installs Node deps automatically, then runs build.sh (Hugo + Tailwind).
+[build]
+command = 'chmod a+x build.sh && ./build.sh'
+
+[assets]
+directory = './public'
+binding = 'ASSETS'
+not_found_handling = '404-page'
+# Narrow Worker invocation to HTML-ish paths so static assets are served
+# straight from the bucket (never billed, never hit the Worker). The Worker
+# only runs for pages, where it fires the server-side Umami pageview.
+run_worker_first = [
+  "/*",
+  # Hugo build outputs
+  "!/js/*",
+  "!/css/*",
+  "!/fonts/*",
+  "!/images/*",
+  "!/.well-known/*",
+  # Single-file static resources at the root
+  "!/logo.svg",
+  "!/favicon.svg",
+  "!/favicon.ico",
+  "!/humans.txt",
+  "!/site.webmanifest",
+  "!/og-default.png",
+  "!/_redirects",
+  "!/_headers",
+]
+
+# Main site. Attach the custom domain in the Cloudflare dashboard once DNS is
+# pointed at the Worker (the user connects Cloudflare after this file lands).
+[[routes]]
+pattern = "wgo-audit.com"
+custom_domain = true
+
+[[routes]]
+pattern = "www.wgo-audit.com"
+custom_domain = true
+
+# Brand site (brand.wgo-audit.com) — DEFERRED. The Worker already knows how to
+# route this host to the /brand asset subtree, but the route stays commented
+# until the brand site is built so it can't serve 404s.
+# [[routes]]
+# pattern = "brand.wgo-audit.com"
+# custom_domain = true
+
+[observability]
+[observability.logs]
+enabled = true
+invocation_logs = true

@@ -1,0 +1,27 @@
+{{- $lang := .Site.Language.Lang -}}
+{{- $d := index hugo.Data (printf "home.%s" $lang) -}}
+{{- $pv := $d.perspectives -}}
+<section id="perspectives" class="scroll-mt-20 bg-gray-50 py-24 dark:bg-ink-900 sm:py-28">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl">
+      <p class="text-sm font-semibold uppercase tracking-wide text-brand-600 dark:text-brand-400">{{ $pv.eyebrow }}</p>
+      <h2 class="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl dark:text-white">{{ $pv.title }}</h2>
+      <p class="mt-4 text-lg text-gray-600 dark:text-gray-300">{{ $pv.subtitle }}</p>
+    </div>
+
+    <div class="mt-14 gap-6 sm:columns-2 lg:columns-3">
+      {{- range $pv.items }}
+        <div class="mb-6 break-inside-avoid rounded-2xl border border-gray-200 bg-white p-6 transition hover:border-brand-300 hover:shadow-md dark:border-white/10 dark:bg-ink-800">
+          <p class="font-mono text-xs text-brand-600 dark:text-brand-400">{{ .id }}</p>
+          <h3 class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">{{ .name }}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-400">{{ .q }}</p>
+        </div>
+      {{- end }}
+    </div>
+
+    <p class="mt-10 text-center text-sm text-gray-500 dark:text-gray-400">
+      {{ $pv.footnote }}
+      <a href="{{ .Site.Params.github }}#audit-reviewers" target="_blank" rel="noopener" class="font-semibold text-brand-700 hover:text-brand-800 dark:text-brand-300 dark:hover:text-brand-200">{{ $pv.footnote_link }} &rarr;</a>
+    </p>
+  </div>
+</section>

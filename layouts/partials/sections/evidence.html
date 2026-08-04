@@ -1,0 +1,36 @@
+{{- $lang := .Site.Language.Lang -}}
+{{- $d := index hugo.Data (printf "home.%s" $lang) -}}
+{{- $e := $d.evidence -}}
+<section class="relative overflow-hidden bg-ink-900 py-24 sm:py-28">
+  <div class="grid-bg-dark pointer-events-none absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black,transparent_80%)]"></div>
+  <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">{{ $e.title }}</h2>
+      <p class="mt-4 text-lg text-gray-300">{{ $e.subtitle }}</p>
+    </div>
+
+    <div class="mx-auto mt-14 grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-3">
+      {{- range $e.states }}
+        {{- $icon := "" -}}
+        {{- $badge := "" -}}
+        {{- if eq .key "fact" }}
+          {{- $badge = "bg-fact-500/15 text-fact-400 ring-fact-500/30" -}}
+          {{- $icon = "M4.5 12.75l6 6 9-13.5" -}}
+        {{- else if eq .key "unknown" }}
+          {{- $badge = "bg-unknown-500/15 text-unknown-400 ring-unknown-500/30" -}}
+          {{- $icon = "M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M12 15.75h.007v.008H12v-.008zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" -}}
+        {{- else }}
+          {{- $badge = "bg-conflict-500/15 text-conflict-400 ring-conflict-500/30" -}}
+          {{- $icon = "M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" -}}
+        {{- end -}}
+        <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-8 text-center">
+          <span class="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-xl ring-1 {{ $badge }}">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="{{ $icon }}" /></svg>
+          </span>
+          <h3 class="mt-5 text-lg font-semibold text-white">{{ .label }}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-gray-400">{{ .desc }}</p>
+        </div>
+      {{- end }}
+    </div>
+  </div>
+</section>

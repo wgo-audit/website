@@ -1,0 +1,12 @@
+{{- $lang := .Site.Language.Lang -}}
+{{- $d := index hugo.Data (printf "home.%s" $lang) -}}
+{{- $ph := $d.philosophy -}}
+<section id="philosophy" class="scroll-mt-20 bg-gradient-to-br from-brand-600 to-brand-800 py-24 sm:py-28">
+  <div class="mx-auto max-w-4xl px-6 text-center lg:px-8">
+    <svg class="mx-auto h-10 w-10 text-brand-300/70" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.13 8.57c.42 0 .8.05 1.13.16-.33-1.2-1.26-2.05-2.5-2.05V4.5c3.06 0 5.24 2.4 5.24 5.86 0 3.2-1.86 5.14-4.37 5.14-1.74 0-3.13-1.3-3.13-3.03 0-1.74 1.3-3.03 3.13-2.9zm8.5 0c.42 0 .8.05 1.13.16-.33-1.2-1.26-2.05-2.5-2.05V4.5c3.06 0 5.24 2.4 5.24 5.86 0 3.2-1.86 5.14-4.37 5.14-1.74 0-3.13-1.3-3.13-3.03 0-1.74 1.3-3.03 3.13-2.9z" /></svg>
+    <blockquote class="mt-6 text-2xl font-semibold leading-snug text-white sm:text-3xl">
+      &ldquo;{{ $ph.quote }}&rdquo;
+    </blockquote>
+    <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-brand-50/90">{{ $ph.body }}</p>
+  </div>
+</section>

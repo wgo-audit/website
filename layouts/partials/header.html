@@ -1,0 +1,50 @@
+{{- $github := .Site.Params.github -}}
+<header class="sticky top-0 z-40 border-b border-gray-200/80 bg-white/85 backdrop-blur dark:border-white/10 dark:bg-ink-950/85">
+  <div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-6 lg:px-8">
+    {{- /* Wordmark */ -}}
+    <a href="{{ "/" | relLangURL }}" class="flex items-center gap-2 text-lg font-bold tracking-tight" aria-label="WGO — Whats.Going.On.">
+      {{ partial "logo-mark.html" . }}
+      <span class="text-gray-900 dark:text-white">WGO</span>
+    </a>
+
+    {{- /* Desktop nav */ -}}
+    <nav class="hidden items-center gap-8 md:flex" aria-label="Primary">
+      <a href="#how-it-works" class="text-sm font-medium text-gray-600 transition hover:text-brand-700 dark:text-gray-300 dark:hover:text-brand-300">{{ i18n "nav_how" }}</a>
+      <a href="#perspectives" class="text-sm font-medium text-gray-600 transition hover:text-brand-700 dark:text-gray-300 dark:hover:text-brand-300">{{ i18n "nav_perspectives" }}</a>
+      <a href="#philosophy" class="text-sm font-medium text-gray-600 transition hover:text-brand-700 dark:text-gray-300 dark:hover:text-brand-300">{{ i18n "nav_philosophy" }}</a>
+      <a href="{{ .Site.Params.docs }}" class="text-sm font-medium text-gray-600 transition hover:text-brand-700 dark:text-gray-300 dark:hover:text-brand-300" target="_blank" rel="noopener">{{ i18n "nav_docs" }}</a>
+    </nav>
+
+    {{- /* Right controls */ -}}
+    <div class="flex items-center gap-1 sm:gap-2">
+      {{ partial "lang-switcher.html" . }}
+
+      <button type="button" data-action="toggle-theme" aria-label="{{ i18n "toggle_theme" }}" class="inline-flex h-9 w-9 items-center justify-center rounded-md text-gray-500 transition hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white">
+        <svg class="h-5 w-5 dark:hidden" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" /></svg>
+        <svg class="hidden h-5 w-5 dark:block" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" /></svg>
+      </button>
+
+      <a href="{{ $github }}" target="_blank" rel="noopener" aria-label="{{ i18n "github_aria" }}" class="inline-flex h-9 w-9 items-center justify-center rounded-md text-gray-500 transition hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white">
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.339-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.523 2 12 2Z" /></svg>
+      </a>
+
+      <a href="{{ .Site.Params.github }}#five-minute-start" target="_blank" rel="noopener" class="hidden rounded-md bg-brand-600 px-3.5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-500 sm:inline-flex">{{ i18n "cta_get_started" }}</a>
+
+      {{- /* Mobile menu toggle */ -}}
+      <button type="button" id="mobile-menu-toggle" aria-controls="mobile-menu" aria-expanded="false" aria-label="{{ i18n "toggle_menu" }}" class="inline-flex h-9 w-9 items-center justify-center rounded-md text-gray-600 transition hover:bg-gray-100 md:hidden dark:text-gray-300 dark:hover:bg-white/10">
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
+      </button>
+    </div>
+  </div>
+
+  {{- /* Mobile menu */ -}}
+  <nav id="mobile-menu" class="hidden border-t border-gray-200 bg-white px-6 py-4 md:hidden dark:border-white/10 dark:bg-ink-950" aria-label="Mobile">
+    <div class="flex flex-col gap-1">
+      <a href="#how-it-works" class="rounded-md px-2 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-white/5">{{ i18n "nav_how" }}</a>
+      <a href="#perspectives" class="rounded-md px-2 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-white/5">{{ i18n "nav_perspectives" }}</a>
+      <a href="#philosophy" class="rounded-md px-2 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-white/5">{{ i18n "nav_philosophy" }}</a>
+      <a href="{{ .Site.Params.docs }}" target="_blank" rel="noopener" class="rounded-md px-2 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-white/5">{{ i18n "nav_docs" }}</a>
+      <a href="{{ .Site.Params.github }}#five-minute-start" target="_blank" rel="noopener" class="mt-2 rounded-md bg-brand-600 px-3.5 py-2.5 text-center text-base font-semibold text-white hover:bg-brand-500">{{ i18n "cta_get_started" }}</a>
+    </div>
+  </nav>
+</header>

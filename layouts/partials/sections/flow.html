@@ -1,0 +1,31 @@
+{{- $lang := .Site.Language.Lang -}}
+{{- $d := index hugo.Data (printf "home.%s" $lang) -}}
+{{- $f := $d.flow -}}
+{{- /* tone → literal Tailwind classes (kept literal so Tailwind can see them) */ -}}
+{{- $tones := dict
+  "brand"    (dict "chip" "bg-brand-600 text-white"     "bar" "bg-brand-500"    "ring" "group-hover:border-brand-300")
+  "blue"     (dict "chip" "bg-blue-600 text-white"      "bar" "bg-blue-500"     "ring" "group-hover:border-blue-300")
+  "unknown"  (dict "chip" "bg-unknown-500 text-white"   "bar" "bg-unknown-500"  "ring" "group-hover:border-unknown-300")
+  "conflict" (dict "chip" "bg-conflict-600 text-white"  "bar" "bg-conflict-500" "ring" "group-hover:border-conflict-300")
+-}}
+<section id="how-it-works" class="scroll-mt-20 bg-gray-50 py-24 dark:bg-ink-900 sm:py-28">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="text-sm font-semibold uppercase tracking-wide text-brand-600 dark:text-brand-400">{{ $f.eyebrow }}</p>
+      <h2 class="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl dark:text-white">{{ $f.title }}</h2>
+      <p class="mt-4 text-lg text-gray-600 dark:text-gray-300">{{ $f.subtitle }}</p>
+    </div>
+
+    <ol class="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      {{- range $i, $s := $f.steps }}
+        {{- $t := index $tones $s.tone }}
+        <li class="group relative flex h-full flex-col rounded-xl border border-gray-200 bg-white p-6 transition {{ $t.ring }} hover:shadow-md dark:border-white/10 dark:bg-ink-800">
+          <span class="absolute inset-x-0 top-0 h-1 rounded-t-xl {{ $t.bar }}"></span>
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-sm font-bold {{ $t.chip }}">{{ $s.n }}</span>
+          <h3 class="mt-4 text-base font-semibold text-gray-900 dark:text-white">{{ $s.title }}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-400">{{ $s.desc }}</p>
+        </li>
+      {{- end }}
+    </ol>
+  </div>
+</section>

@@ -1,0 +1,26 @@
+{{- $lang := .Site.Language.Lang -}}
+{{- $d := index hugo.Data (printf "home.%s" $lang) -}}
+{{- $p := $d.principles -}}
+<section class="bg-white py-24 dark:bg-ink-950 sm:py-28">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl">
+      <p class="text-sm font-semibold uppercase tracking-wide text-brand-600 dark:text-brand-400">{{ $p.eyebrow }}</p>
+      <h2 class="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl dark:text-white">{{ $p.title }}</h2>
+      <p class="mt-4 text-lg text-gray-600 dark:text-gray-300">{{ $p.subtitle }}</p>
+    </div>
+
+    <div class="mt-14 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+      {{- range $p.items }}
+        <div class="flex flex-col">
+          <div class="flex items-center gap-3">
+            <span class="inline-flex h-9 w-9 flex-none items-center justify-center rounded-lg bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300">
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+            </span>
+            <h3 class="text-base font-semibold text-gray-900 dark:text-white">{{ .title }}</h3>
+          </div>
+          <p class="mt-3 text-sm leading-relaxed text-gray-600 dark:text-gray-400">{{ .desc }}</p>
+        </div>
+      {{- end }}
+    </div>
+  </div>
+</section>

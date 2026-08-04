@@ -1,0 +1,34 @@
+skip_to_content:
+  other: "Skip to content"
+nav_how:
+  other: "How it works"
+nav_perspectives:
+  other: "Perspectives"
+nav_philosophy:
+  other: "Philosophy"
+nav_docs:
+  other: "Docs"
+cta_get_started:
+  other: "Get started"
+toggle_theme:
+  other: "Toggle dark mode"
+toggle_menu:
+  other: "Toggle menu"
+github_aria:
+  other: "WGO on GitHub"
+copy_command:
+  other: "Copy install command"
+copied:
+  other: "Copied"
+footer_blurb:
+  other: "Open-source, evidence-led audits for startups and SMBs. Runs locally on Codex or Claude."
+copyright:
+  other: "Benoît H. Dicaire. Released under the MIT licence."
+built_with:
+  other: "Built with Hugo, Tailwind, and Cloudflare Workers."
+notfound_title:
+  other: "This page went missing."
+notfound_body:
+  other: "The link may be broken, or the page may have moved. Let's get you back."
+notfound_home:
+  other: "Back to home"

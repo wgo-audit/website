@@ -1,0 +1,22 @@
+# Hugo build output
+/public/
+/resources/_gen/
+.hugo_build.lock
+
+# Node
+/node_modules/
+
+# Licensed design templates — reference only, must NOT be published in this
+# public repository (Salient / Tailwind Plus UI kit / marketing blocks).
+/inspiration/
+
+# OS / editor cruft
+.DS_Store
+*.log
+
+# Cloudflare / Wrangler
+.wrangler/
+.dev.vars
+
+# Local Claude Code settings (machine-specific)
+.claude/settings.local.json

@@ -1,0 +1,105 @@
+baseURL: "https://wgo-audit.com/"
+title: "WGO"
+
+# Pinned to 0.160.1 in build.sh. Uses css.PostCSS (Tailwind v4).
+min_version: "0.158.0"
+
+enableRobotsTXT: true
+enableGitInfo: true
+defaultContentLanguage: en
+defaultContentLanguageInSubdir: true
+disableKinds:
+  - taxonomy
+  - term
+
+languages:
+  en:
+    locale: en-CA
+    label: English
+    weight: 1
+    params:
+      description: "Evidence-led audits for startups and SMBs. Find out what is true, what is risky, and what needs to happen next."
+      tagline: "Evidence-led audits for startups and SMBs"
+      footer:
+        col2:
+          title: Get started
+          links:
+            - name: Documentation
+              url: https://github.com/wgo-audit/code#readme
+              external: true
+            - name: Install guide
+              url: https://github.com/wgo-audit/code#five-minute-start
+              external: true
+        col3:
+          title: Community
+          links:
+            - name: Source code
+              url: https://github.com/wgo-audit/code
+              external: true
+            - name: Discussions
+              url: https://github.com/orgs/wgo-audit/discussions
+              external: true
+        col4:
+          title: Project
+          links:
+            - name: Licence
+              url: https://github.com/wgo-audit/code/blob/main/LICENSE
+              external: true
+            - name: Organisation
+              url: https://github.com/wgo-audit
+              external: true
+  fr:
+    locale: fr-CA
+    label: Français
+    weight: 2
+    params:
+      description: "Des audits fondés sur les preuves pour les jeunes pousses et les PME. Sachez ce qui est vrai, ce qui est risqué et ce qui doit être fait ensuite."
+      tagline: "Des audits fondés sur les preuves pour les jeunes pousses et les PME"
+      footer:
+        col2:
+          title: Commencer
+          links:
+            - name: Documentation
+              url: https://github.com/wgo-audit/code#readme
+              external: true
+            - name: Guide d'installation
+              url: https://github.com/wgo-audit/code#five-minute-start
+              external: true
+        col3:
+          title: Communauté
+          links:
+            - name: Code source
+              url: https://github.com/wgo-audit/code
+              external: true
+            - name: Discussions
+              url: https://github.com/orgs/wgo-audit/discussions
+              external: true
+        col4:
+          title: Projet
+          links:
+            - name: Licence
+              url: https://github.com/wgo-audit/code/blob/main/LICENSE
+              external: true
+            - name: Organisation
+              url: https://github.com/wgo-audit
+              external: true
+
+params:
+  github: "https://github.com/wgo-audit/code"
+  org: "https://github.com/wgo-audit"
+  discussions: "https://github.com/orgs/wgo-audit/discussions"
+  docs: "https://github.com/wgo-audit/code#readme"
+
+sitemap:
+  changefreq: weekly
+  priority: 0.7
+  filename: sitemap.xml
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+outputs:
+  home:
+    - HTML

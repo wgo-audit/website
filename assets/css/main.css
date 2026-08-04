@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+/* Explicit source scanning. Hugo processes this file through css.PostCSS, so we
+   point Tailwind at the template trees rather than relying on auto-detection.
+   Paths are relative to this file (assets/css/). */
+@source "../../layouts";
+@source "../../content";
+
+/* Class-based dark mode (toggle adds `.dark` on <html>). Light is the default. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Design tokens — Tailwind v4 CSS-first config (no tailwind.config.js).
+   Palette + fonts derived from the WGO north-star hero image.
+   ───────────────────────────────────────────────────────────────────────── */
+@theme {
+  --font-sans: "InterVariable", "Inter", system-ui, -apple-system, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo,
+    Consolas, monospace;
+
+  /* Brand — teal (the WGO wordmark colour) */
+  --color-brand-50: #f0fdfa;
+  --color-brand-100: #ccfbf1;
+  --color-brand-200: #99f6e4;
+  --color-brand-300: #5eead4;
+  --color-brand-400: #2dd4bf;
+  --color-brand-500: #14b8a6;
+  --color-brand-600: #0d9488;
+  --color-brand-700: #0f766e;
+  --color-brand-800: #115e59;
+  --color-brand-900: #134e4a;
+  --color-brand-950: #042f2e;
+
+  /* Ink — deep navy of the hero canvas + terminal panel */
+  --color-ink-950: #060d18;
+  --color-ink-900: #0a1424;
+  --color-ink-800: #0f1e33;
+  --color-ink-700: #16283f;
+  --color-ink-600: #1e3350;
+
+  /* Evidence states — Facts (green) / Unknowns (amber) / Conflicts (red).
+     These are the semantic system from the hero's bottom band. */
+  --color-fact-50: #ecfdf5;
+  --color-fact-100: #d1fae5;
+  --color-fact-400: #34d399;
+  --color-fact-500: #10b981;
+  --color-fact-600: #059669;
+  --color-fact-700: #047857;
+
+  --color-unknown-50: #fffbeb;
+  --color-unknown-100: #fef3c7;
+  --color-unknown-400: #fbbf24;
+  --color-unknown-500: #f59e0b;
+  --color-unknown-600: #d97706;
+  --color-unknown-700: #b45309;
+
+  --color-conflict-50: #fef2f2;
+  --color-conflict-100: #fee2e2;
+  --color-conflict-400: #f87171;
+  --color-conflict-500: #ef4444;
+  --color-conflict-600: #dc2626;
+  --color-conflict-700: #b91c1c;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Self-hosted variable fonts (single file covers the full weight axis).
+   Files live in static/fonts/ → served from /fonts/.
+   ───────────────────────────────────────────────────────────────────────── */
+@font-face {
+  font-family: "InterVariable";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/intervariable.woff2") format("woff2");
+}
+@font-face {
+  font-family: "InterVariable";
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/intervariable-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url("/fonts/jetbrainsmono.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: italic;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url("/fonts/jetbrainsmono-italic.woff2") format("woff2");
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Base
+   ───────────────────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Offset in-page anchors for the sticky header. */
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background-color: var(--color-brand-200);
+    color: var(--color-brand-900);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Components
+   ───────────────────────────────────────────────────────────────────────── */
+@layer components {
+  /* Faint grid used behind the hero / dark bands. */
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, rgb(148 163 184 / 0.12) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(148 163 184 / 0.12) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .grid-bg-dark {
+    background-image:
+      linear-gradient(to right, rgb(45 212 191 / 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(45 212 191 / 0.08) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+}

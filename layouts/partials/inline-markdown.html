@@ -1,0 +1,5 @@
+{{- /* Render a short markdown string inline (no wrapping <p>).
+       Usage: {{ partial "inline-markdown.html" (dict "ctx" . "text" $string) }} */ -}}
+{{- $ctx := .ctx -}}
+{{- $text := .text -}}
+{{- $ctx.RenderString (dict "display" "inline") $text -}}
