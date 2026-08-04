@@ -12,10 +12,11 @@ compatibility_date = '2026-05-01'
 UMAMI_ENDPOINT = 'https://cloud.umami.is/api/send'
 UMAMI_GEO_IP_MODE = 'full'
 
-# Cloudflare Workers Builds runs this on every push to the connected branch.
-# It installs Node deps automatically, then runs build.sh (Hugo + Tailwind).
-[build]
-command = 'chmod a+x build.sh && ./build.sh'
+# NOTE: no [build] here on purpose. Cloudflare Workers Builds already runs the
+# build via its configured build command (`npm run build` → build.sh) before the
+# deploy step. Adding a [build] command would make `wrangler deploy` run build.sh
+# a SECOND time on every CI deploy. If you ever run `wrangler deploy` by hand,
+# run `npm run build` first so ./public is fresh.
 
 [assets]
 directory = './public'
