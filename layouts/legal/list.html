@@ -1,0 +1,42 @@
+{{ define "main" }}
+<div class="mx-auto max-w-5xl px-6 py-16 lg:px-8 lg:py-20">
+
+  {{- /* Page header */ -}}
+  <header class="max-w-3xl">
+    {{ with .Params.eyebrow }}<p class="font-mono text-sm font-medium text-brand-700 dark:text-brand-400">{{ . }}</p>{{ end }}
+    <h1 class="mt-3 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl dark:text-white">{{ .Title }}</h1>
+    {{ with .Description }}<p class="mt-4 text-lg text-gray-600 dark:text-gray-300">{{ . }}</p>{{ end }}
+  </header>
+
+  {{ with .Content }}<div class="doc-prose mt-8 max-w-3xl">{{ . }}</div>{{ end }}
+
+  {{- /* Every page under content/legal/ lists itself here, so adding a notice
+         is a content edit — no change to this layout. */ -}}
+  <div class="mt-14 overflow-x-auto">
+    <table class="w-full min-w-[42rem] border-collapse text-left text-base">
+      <thead>
+        <tr class="border-b border-gray-300 dark:border-white/20">
+          <th class="pb-4 pr-6 align-bottom text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ i18n "legal_col_page" }}</th>
+          <th class="pb-4 pr-6 align-bottom text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ i18n "legal_col_description" }}</th>
+          <th class="pb-4 pl-6 text-right align-bottom text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ i18n "legal_col_updated" }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{- range .Pages.ByTitle }}
+        <tr class="border-b border-gray-100 last:border-b-0 dark:border-white/10">
+          <td class="w-72 py-5 pr-6 align-top font-semibold text-gray-900 dark:text-white">
+            <a href="{{ .RelPermalink }}" class="transition hover:text-brand-700 dark:hover:text-brand-300">{{ .Title }}</a>
+          </td>
+          <td class="max-w-lg py-5 pr-8 align-top text-gray-600 dark:text-gray-300">
+            {{- with .Description }}{{ . }}{{ else }}<span class="text-gray-400">&mdash;</span>{{ end }}
+          </td>
+          <td class="w-40 py-5 pl-6 text-right align-top">
+            <time datetime="{{ .Lastmod.Format "2006-01-02" }}" class="font-mono text-sm tabular-nums text-gray-400 dark:text-gray-500">{{ .Lastmod.Format "2006.01.02" }}</time>
+          </td>
+        </tr>
+        {{- end }}
+      </tbody>
+    </table>
+  </div>
+</div>
+{{ end }}

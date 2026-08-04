@@ -139,65 +139,65 @@
     background-size: 40px 40px;
   }
 
-  /* Minimal prose for short markdown intros on the brand site. Kept small on
-     purpose so we don't pull in the full typography plugin for a few pages. */
-  .brand-body {
+  /* Minimal prose for markdown content (brand intros + the legal notices).
+     Kept small on purpose so we don't pull in the full typography plugin. */
+  .doc-prose {
     color: var(--color-gray-600);
     line-height: 1.7;
   }
-  .dark .brand-body {
+  .dark .doc-prose {
     color: var(--color-gray-300);
   }
-  .brand-body > * + * {
+  .doc-prose > * + * {
     margin-top: 1.25em;
   }
-  .brand-body h2 {
+  .doc-prose h2 {
     margin-top: 2em;
     font-size: 1.25rem;
     font-weight: 600;
     letter-spacing: -0.01em;
     color: var(--color-gray-900);
   }
-  .dark .brand-body h2 {
+  .dark .doc-prose h2 {
     color: #fff;
   }
-  .brand-body h3 {
+  .doc-prose h3 {
     margin-top: 1.5em;
     font-weight: 600;
     color: var(--color-gray-900);
   }
-  .dark .brand-body h3 {
+  .dark .doc-prose h3 {
     color: #fff;
   }
-  .brand-body a {
+  .doc-prose a {
     color: var(--color-brand-700);
     text-decoration: underline;
     text-underline-offset: 2px;
   }
-  .dark .brand-body a {
+  .dark .doc-prose a {
     color: var(--color-brand-300);
   }
-  .brand-body ul,
-  .brand-body ol {
+  .doc-prose ul,
+  .doc-prose ol {
     padding-left: 1.4em;
   }
-  .brand-body ul {
+  .doc-prose ul {
     list-style: disc;
   }
-  .brand-body ol {
+  .doc-prose ol {
     list-style: decimal;
   }
-  .brand-body li + li {
+  .doc-prose li + li {
     margin-top: 0.4em;
   }
-  .brand-body strong {
+  .doc-prose strong {
     font-weight: 600;
     color: var(--color-gray-900);
   }
-  .dark .brand-body strong {
+  .dark .doc-prose strong {
     color: #f3f4f6;
   }
-  .brand-body code {
+  .doc-prose code {
     font-family: var(--font-mono);
     font-size: 0.875em;
     border-radius: 0.3rem;
@@ -205,8 +205,66 @@
     background: var(--color-gray-100);
     color: var(--color-brand-800);
   }
-  .dark .brand-body code {
+  .dark .doc-prose code {
     background: var(--color-ink-800);
     color: var(--color-brand-300);
+  }
+  .doc-prose blockquote {
+    border-left: 3px solid var(--color-brand-500);
+    padding: 0.25rem 0 0.25rem 1.1rem;
+    color: var(--color-gray-700);
+  }
+  .dark .doc-prose blockquote {
+    color: var(--color-gray-200);
+  }
+  .doc-prose h2 + p,
+  .doc-prose h3 + p {
+    margin-top: 0.75em;
+  }
+  .doc-prose table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.925em;
+    display: block;
+    overflow-x: auto;
+  }
+  .doc-prose th,
+  .doc-prose td {
+    border-bottom: 1px solid var(--color-gray-200);
+    padding: 0.6em 0.9em 0.6em 0;
+    text-align: left;
+    vertical-align: top;
+  }
+  .dark .doc-prose th,
+  .dark .doc-prose td {
+    border-bottom-color: rgb(255 255 255 / 0.1);
+  }
+  .doc-prose th {
+    font-weight: 600;
+    color: var(--color-gray-900);
+  }
+  .dark .doc-prose th {
+    color: #fff;
+  }
+  .doc-prose kbd {
+    font-family: var(--font-mono);
+    font-size: 0.8em;
+    border: 1px solid var(--color-gray-300);
+    border-bottom-width: 2px;
+    border-radius: 0.3rem;
+    padding: 0.05em 0.4em;
+    color: var(--color-gray-700);
+  }
+  .dark .doc-prose kbd {
+    border-color: rgb(255 255 255 / 0.2);
+    color: var(--color-gray-200);
+  }
+  .doc-prose hr {
+    border: 0;
+    border-top: 1px solid var(--color-gray-200);
+    margin-top: 2em;
+  }
+  .dark .doc-prose hr {
+    border-top-color: rgb(255 255 255 / 0.1);
   }
 }

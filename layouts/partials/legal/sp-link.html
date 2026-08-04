@@ -1,0 +1,8 @@
+{{- /* Render a sub-processor cell value: an external link when a url is given,
+       otherwise plain text. `strong` bolds the entity column. */ -}}
+{{- $strong := .strong -}}
+{{- if .url -}}
+  <a href="{{ .url }}" target="_blank" rel="noopener" class="text-brand-700 underline decoration-gray-300 underline-offset-2 transition hover:decoration-brand-500 dark:text-brand-300 dark:decoration-white/20{{ if $strong }} font-semibold{{ end }}">{{ .label }}</a>
+{{- else -}}
+  {{- if $strong }}<span class="font-semibold text-gray-900 dark:text-white">{{ .label }}</span>{{ else }}{{ .label }}{{ end -}}
+{{- end -}}

@@ -1,0 +1,8 @@
+{{ define "main" }}
+<div class="mx-auto max-w-5xl px-6 py-16 lg:px-8 lg:py-20">
+  {{ partial "legal/header.html" . }}
+  <div class="doc-prose mt-10 max-w-3xl">
+    {{ .Content }}
+  </div>
+</div>
+{{ end }}

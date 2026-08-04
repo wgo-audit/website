@@ -1,0 +1,68 @@
+# Drives content/legal/sub-processors.en.md through layouts/legal/sub-processors.html.
+# A cell may be a plain string, a list (bullets), a {label, url} link, or a list
+# of links. Keep sub-processors.fr.yml in step.
+lead: "This website is deliberately simple, so the list is short. These are the only external providers that touch it. The WGO audit tool runs on your own machine and is not covered here."
+
+sections:
+  - title: "Infrastructure & sub-processors"
+    intro: "The providers needed to build, host, and measure this website. They process data only on our behalf."
+    columns:
+      - { key: entity, label: "Provider", strong: true }
+      - { key: purpose, label: "Purpose / service" }
+      - { key: data, label: "Data transferred" }
+      - { key: location, label: "Processing location" }
+      - { key: policy, label: "Links" }
+    rows:
+      - entity: { label: "GitHub", url: "https://github.com/" }
+        purpose: "Source hosting and automated deployment"
+        purpose-items:
+          - { label: "Version control", url: "https://github.com/wgo-audit/website" }
+          - { label: "Cloudflare Workers Builds (CI/CD)", url: "https://developers.cloudflare.com/workers/ci-cd/" }
+        data:
+          - "Git commit metadata"
+          - "Site source & content"
+        location: "United States (US)"
+        policy:
+          - { label: "Privacy", url: "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" }
+          - { label: "DPA", url: "https://github.com/customer-terms/github-data-protection-agreement" }
+          - { label: "Subprocessors", url: "https://docs.github.com/en/site-policy/privacy-policies/github-subprocessors" }
+      - entity: { label: "Cloudflare", url: "https://www.cloudflare.com/" }
+        purpose: "Hosting, delivery, and email routing"
+        purpose-items:
+          - { label: "Workers & static assets", url: "https://www.cloudflare.com/products/workers/" }
+          - { label: "DNS", url: "https://www.cloudflare.com/application-services/products/dns/" }
+          - { label: "SSL / TLS", url: "https://www.cloudflare.com/application-services/products/ssl/" }
+          - { label: "CDN", url: "https://www.cloudflare.com/products/cdn/" }
+          - { label: "Email Routing (contact form delivery)", url: "https://developers.cloudflare.com/email-routing/" }
+        data:
+          - "IP address"
+          - "Request path"
+          - "Contact-form message, delivered as email"
+        location: { label: "Global Anycast network (EU & US)", url: "https://www.cloudflare.com/trust-hub/gdpr/" }
+        policy:
+          - { label: "Privacy", url: "https://www.cloudflare.com/privacypolicy/" }
+          - { label: "DPA", url: "https://www.cloudflare.com/cloudflare-customer-dpa/" }
+          - { label: "Subprocessors", url: "https://www.cloudflare.com/gdpr/subprocessors/cloudflare-services/" }
+      - entity: { label: "Umami", url: "https://umami.is/" }
+        purpose: "Privacy-first analytics (cloud), fired server-side"
+        data:
+          - "Page path, query strings stripped"
+          - "Referring URL, when your browser sends one"
+          - "Country, from an IP resolved then discarded"
+          - "Language preference"
+        location: "European Union (EU)"
+        policy:
+          - { label: "Privacy", url: "https://umami.is/privacy" }
+          - { label: "DPA", url: "https://umami.is/dpa" }
+          - { label: "Subprocessors", url: "https://umami.is/subprocessors" }
+
+  - title: "Runs entirely in your browser"
+    intro: "For completeness: the site's interactivity runs locally in your browser and sends nothing to an external server."
+    columns:
+      - { key: entity, label: "What", strong: true }
+      - { key: purpose, label: "Purpose" }
+      - { key: data, label: "Data handling" }
+    rows:
+      - entity: "Theme toggle"
+        purpose: "Remembers your light/dark choice"
+        data: "Stored in your browser's localStorage under the key `theme`; never transmitted."

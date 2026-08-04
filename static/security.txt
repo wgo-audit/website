@@ -1,0 +1,6 @@
+Contact: mailto:privacy@wgo-audit.com
+Contact: https://github.com/wgo-audit/code/security/advisories/new
+Policy: https://wgo-audit.com/en/legal/responsible-disclosure/
+Preferred-Languages: en, fr
+Canonical: https://wgo-audit.com/.well-known/security.txt
+Expires: 2027-08-03T00:00:00.000Z

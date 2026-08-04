@@ -1,0 +1,46 @@
+{{ define "main" }}
+{{- /* Data-driven attribution list. Component data is language-neutral (licence
+       texts are English); each section title/intro is a per-language map. The
+       full licence sits in a <details> so the page stays scannable. */ -}}
+{{- $page := . -}}
+{{- $lang := .Site.Language.Lang -}}
+{{- $data := index hugo.Data "oss-attribution" -}}
+<div class="mx-auto max-w-5xl px-6 py-16 lg:px-8 lg:py-20">
+  {{ partial "legal/header.html" . }}
+
+  {{ with .Content }}<div class="doc-prose mt-8 max-w-3xl">{{ . }}</div>{{ end }}
+
+  {{- range $i, $section := $data.sections }}
+  <section class="{{ if or $i $page.Content }}mt-14{{ else }}mt-12{{ end }}">
+    <h2 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{ index $section.title $lang }}</h2>
+    {{- with index $section.intro $lang }}<p class="mt-3 max-w-3xl text-gray-600 dark:text-gray-300">{{ . }}</p>{{ end }}
+
+    <div class="mt-6 space-y-4">
+      {{- range $c := $section.components }}
+      <div class="rounded-2xl border border-gray-200 p-6 dark:border-white/10">
+        <div class="flex flex-wrap items-baseline gap-x-3 gap-y-2">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+            <a href="{{ $c.url }}" target="_blank" rel="noopener" class="transition hover:text-brand-700 dark:hover:text-brand-300">{{ $c.name }}</a>
+          </h3>
+          {{- with $c.version }}<span class="font-mono text-sm text-gray-400 dark:text-gray-500">v{{ . }}</span>{{ end }}
+          <span class="ml-auto inline-flex items-center rounded-full border border-gray-200 px-3 py-0.5 text-xs font-semibold uppercase tracking-wider text-gray-700 dark:border-white/15 dark:text-gray-200">{{ $c.license }}</span>
+        </div>
+        {{- with $c.copyright }}<p class="mt-3 text-sm text-gray-600 dark:text-gray-300">{{ . }}</p>{{ end }}
+        {{- with $c.text }}
+        <details class="mt-4">
+          <summary class="inline-flex cursor-pointer items-center text-sm font-semibold text-brand-700 transition hover:text-brand-800 dark:text-brand-300">{{ i18n "view_license" }}</summary>
+          <pre class="mt-4 overflow-x-auto rounded-xl bg-gray-50 p-5 font-mono text-xs leading-relaxed whitespace-pre-wrap text-gray-600 dark:bg-ink-900 dark:text-gray-300">{{ . }}</pre>
+        </details>
+        {{- else }}{{ with $c.license_url }}
+        <a href="{{ . }}" target="_blank" rel="noopener" class="mt-4 inline-flex items-center gap-x-1 text-sm font-semibold text-brand-700 underline decoration-gray-300 underline-offset-4 transition hover:decoration-brand-500 dark:text-brand-300 dark:decoration-white/20">
+          {{ i18n "view_license" }}
+          <svg viewBox="0 0 10 10" aria-hidden="true" class="h-2.5 w-2.5 flex-none fill-none stroke-current stroke-[1.5]"><path d="M2 8 8 2M3.5 2H8v4.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </a>
+        {{- end }}{{ end }}
+      </div>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+</div>
+{{ end }}

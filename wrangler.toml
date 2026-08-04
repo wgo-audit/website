@@ -38,6 +38,7 @@ run_worker_first = [
   "!/favicon.svg",
   "!/favicon.ico",
   "!/humans.txt",
+  "!/security.txt",
   "!/site.webmanifest",
   "!/og-default.png",
   "!/_redirects",

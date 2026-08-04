@@ -32,3 +32,17 @@ notfound_body:
   other: "Le lien est peut-être brisé ou la page a été déplacée. Revenons en terrain connu."
 notfound_home:
   other: "Retour à l'accueil"
+legal_col_page:
+  other: "Page"
+legal_col_description:
+  other: "Description"
+legal_col_updated:
+  other: "Mise à jour"
+published:
+  other: "Publié"
+updated:
+  other: "Mis à jour"
+view_license:
+  other: "Voir la licence"
+nav_legal:
+  other: "Mentions légales"

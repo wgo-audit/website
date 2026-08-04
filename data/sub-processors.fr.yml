@@ -1,0 +1,68 @@
+# Pilote content/legal/sub-processors.fr.md via layouts/legal/sub-processors.html.
+# Une cellule peut être une chaîne, une liste (puces), un lien {label, url} ou une
+# liste de liens. Garder sub-processors.en.yml en phase.
+lead: "Ce site Web est volontairement simple; la liste est donc courte. Voici les seuls fournisseurs externes qui le touchent. L'outil d'audit WGO s'exécute sur votre propre poste et n'est pas visé ici."
+
+sections:
+  - title: "Infrastructure et sous-traitants"
+    intro: "Les fournisseurs nécessaires pour bâtir, héberger et mesurer ce site Web. Ils traitent les données uniquement pour notre compte."
+    columns:
+      - { key: entity, label: "Fournisseur", strong: true }
+      - { key: purpose, label: "Objet / service" }
+      - { key: data, label: "Données transmises" }
+      - { key: location, label: "Lieu de traitement" }
+      - { key: policy, label: "Liens" }
+    rows:
+      - entity: { label: "GitHub", url: "https://github.com/" }
+        purpose: "Hébergement du code et déploiement automatisé"
+        purpose-items:
+          - { label: "Gestion de versions", url: "https://github.com/wgo-audit/website" }
+          - { label: "Cloudflare Workers Builds (CI/CD)", url: "https://developers.cloudflare.com/workers/ci-cd/" }
+        data:
+          - "Métadonnées de commit Git"
+          - "Source et contenu du site"
+        location: "États-Unis (US)"
+        policy:
+          - { label: "Confidentialité", url: "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" }
+          - { label: "DPA", url: "https://github.com/customer-terms/github-data-protection-agreement" }
+          - { label: "Sous-traitants", url: "https://docs.github.com/en/site-policy/privacy-policies/github-subprocessors" }
+      - entity: { label: "Cloudflare", url: "https://www.cloudflare.com/" }
+        purpose: "Hébergement, diffusion et acheminement du courriel"
+        purpose-items:
+          - { label: "Workers et ressources statiques", url: "https://www.cloudflare.com/products/workers/" }
+          - { label: "DNS", url: "https://www.cloudflare.com/application-services/products/dns/" }
+          - { label: "SSL / TLS", url: "https://www.cloudflare.com/application-services/products/ssl/" }
+          - { label: "CDN", url: "https://www.cloudflare.com/products/cdn/" }
+          - { label: "Email Routing (livraison du formulaire)", url: "https://developers.cloudflare.com/email-routing/" }
+        data:
+          - "Adresse IP"
+          - "Chemin de la requête"
+          - "Message du formulaire, livré par courriel"
+        location: { label: "Réseau Anycast mondial (UE et US)", url: "https://www.cloudflare.com/trust-hub/gdpr/" }
+        policy:
+          - { label: "Confidentialité", url: "https://www.cloudflare.com/privacypolicy/" }
+          - { label: "DPA", url: "https://www.cloudflare.com/cloudflare-customer-dpa/" }
+          - { label: "Sous-traitants", url: "https://www.cloudflare.com/gdpr/subprocessors/cloudflare-services/" }
+      - entity: { label: "Umami", url: "https://umami.is/" }
+        purpose: "Analytique respectueuse de la vie privée (nuage), déclenchée côté serveur"
+        data:
+          - "Chemin de la page, chaînes de requête retirées"
+          - "URL de provenance, si votre navigateur l'envoie"
+          - "Pays, à partir d'une IP résolue puis écartée"
+          - "Préférence de langue"
+        location: "Union européenne (UE)"
+        policy:
+          - { label: "Confidentialité", url: "https://umami.is/privacy" }
+          - { label: "DPA", url: "https://umami.is/dpa" }
+          - { label: "Sous-traitants", url: "https://umami.is/subprocessors" }
+
+  - title: "S'exécute entièrement dans votre navigateur"
+    intro: "Par souci d'exhaustivité : l'interactivité du site s'exécute localement dans votre navigateur et n'envoie rien à un serveur externe."
+    columns:
+      - { key: entity, label: "Quoi", strong: true }
+      - { key: purpose, label: "Objet" }
+      - { key: data, label: "Traitement des données" }
+    rows:
+      - entity: "Bascule de thème"
+        purpose: "Retient votre choix clair/sombre"
+        data: "Conservé dans le localStorage de votre navigateur sous la clé `theme`; jamais transmis."

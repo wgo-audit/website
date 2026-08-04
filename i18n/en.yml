@@ -32,3 +32,17 @@ notfound_body:
   other: "The link may be broken, or the page may have moved. Let's get you back."
 notfound_home:
   other: "Back to home"
+legal_col_page:
+  other: "Page"
+legal_col_description:
+  other: "Description"
+legal_col_updated:
+  other: "Updated"
+published:
+  other: "Published"
+updated:
+  other: "Updated"
+view_license:
+  other: "View licence"
+nav_legal:
+  other: "Legal"
