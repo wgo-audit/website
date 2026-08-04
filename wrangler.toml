@@ -1,6 +1,6 @@
 name = 'wgo-audit-website'
 main = 'src/worker.mjs'
-compatibility_date = '2026-05-01'
+compatibility_date = '2026-08-03'
 
 # Non-secret runtime variables (safe to commit). The Umami website ID stays a
 # SECRET set in the dashboard (Settings → Variables and Secrets → runtime), not
