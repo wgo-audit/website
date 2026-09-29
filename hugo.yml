@@ -103,3 +103,12 @@ markup:
 outputs:
   home:
     - HTML
+
+# Hugo 0.165 removed tailwindcss from the default exec allow list
+# (gohugoio/hugo#15178): Tailwind needs a permissive Node setup. This site
+# owns its templates and runs Tailwind through css.TailwindCSS, so it
+# allows it explicitly, as the Hugo maintainers recommend.
+security:
+  exec:
+    allow:
+      - '^((dart-)?sass|go|npx|babel|node|git|postcss|tailwindcss)$'

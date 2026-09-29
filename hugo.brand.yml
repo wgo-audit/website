@@ -78,3 +78,10 @@ sitemap:
 outputs:
   home:
     - HTML
+
+# Same as hugo.yml: Hugo 0.165 removed tailwindcss from the default exec
+# allow list (gohugoio/hugo#15178); the brand build uses css.TailwindCSS.
+security:
+  exec:
+    allow:
+      - '^((dart-)?sass|go|npx|babel|node|git|postcss|tailwindcss)$'
