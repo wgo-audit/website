@@ -20,3 +20,6 @@
 
 # Local Claude Code settings (machine-specific)
 .claude/settings.local.json
+
+# Local Director identity and workstream state
+/.director/
